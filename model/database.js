@@ -11,7 +11,7 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "test", // tried to change to jiggyjams and then npm run migrate
+  database: DB_NAME || "nutri_profiles",
   multipleStatements: true,
 });
 
@@ -22,14 +22,10 @@ con.connect(function (err) {
   let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `products` was successful!");
+    console.log("Table creation `profiles` was successful!");
 
     console.log("Closing...");
   });
 
   con.end();
 });
-
-// If you need to make any changes to the init_db.sql file - then npm run migrate to activate
-// It is much easier to change from there
-// in the future for numbers e.g. quantity and price have inter then put the currency and metrics in the front end component
