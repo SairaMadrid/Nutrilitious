@@ -1,5 +1,5 @@
-DROP TABLE if exists `profiles`;
 DROP TABLE if exists `favourites`;
+DROP TABLE if exists `profiles`;
 
 CREATE TABLE `profiles`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
