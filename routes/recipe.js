@@ -6,9 +6,6 @@ const axios = require('axios');
 const API_KEY = process.env.API_KEY;
 
 // GET recipe titles by ingredients
-//Open a new tab on Postman, paste the address: http://localhost:4000/api/recipe/findByIngredients;
-//in the Query Params tab insert 'ingredients' under the 'Key' and the ingredients you want to search under the 'Value''
-//here you can get a recipe id to fetch the cooking instructions
 router.get('/findByIngredients', async function(req, res, next) {
   const ingredients = req.query.ingredients;
  try {
@@ -24,8 +21,6 @@ router.get('/findByIngredients', async function(req, res, next) {
 });
 
 //GET recipe instructions by id
-//I couldn't assign the id to this endpoint without having the 404 error... 
-//Go to http://localhost:4000/api/recipe; in the Query Params tab insert 'id' under the 'Key' and the recipe id in the 'Value'
 router.get('/', async function(req, res, next) {
   const id = req.query.id;
   try {
@@ -42,7 +37,6 @@ router.get('/', async function(req, res, next) {
 });
 
 //GET ingredients
-//Go to http://localhost:4000/api/recipe/ingredients; in the Query Params tab insert 'query' under the 'Key' and the ingredient you wanna find in the 'Value'
 router.get('/ingredients', async function(req, res, next) {
   const ingredient = req.query.query;
   try {
@@ -52,11 +46,35 @@ router.get('/ingredients', async function(req, res, next) {
       }
     })
 
-    res.send(response.data);
+ const data = response.data.results[0]; //selecting one result from the array
+ const imageURL = `https://spoonacular.com/cdn/ingredients_100x100/${data.image}`; //the image path from the results array
+ const ingredientWithImg = { 
+  ...data,
+  imageURL: imageURL //construct a new key
+ }
+  res.send(ingredientWithImg);
+    //res.send(response.data);
   } catch (error) {
     res.status(500).send(error)
   }
 });
+
+//To implement filtering?
+router.get('/complex-search', async function (req, res, next) {
+  const { query, diet, cuisine, intolerances } = req.query;
+  try {
+    const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&diet=${diet}&cuisine=${cuisine}&intolerances=${intolerances}`, {
+      params: {
+        apiKey: API_KEY,
+      }
+    })
+    res.send(response.data);
+
+  } catch (error) {
+    res.status(500).send(error)
+  }
+});
+
 
 
 module.exports = router;
