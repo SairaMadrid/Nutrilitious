@@ -60,7 +60,7 @@ router.get('/ingredients', async function(req, res, next) {
 });
 
 //To implement filtering?
-router.get('/complex-search', async function (req, res, next) {
+router.get('/complexSearch', async function (req, res, next) {
   const { query, diet, cuisine, intolerances } = req.query;
   try {
     const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&diet=${diet}&cuisine=${cuisine}&intolerances=${intolerances}`, {
