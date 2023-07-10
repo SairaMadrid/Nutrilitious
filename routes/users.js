@@ -71,4 +71,15 @@ router.put("/:id", async function (req, res, next) {
   }
 });
 
+//GET user preferences
+ router.get("/preferences", async function (req, res, next) {
+    try {
+      const result = await db(`SELECT id, preference FROM profiles;`);
+      res.send(result.data);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  });
+ 
+
 module.exports = router;
