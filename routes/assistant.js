@@ -13,6 +13,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+//Get the AI response based on the user input:
 /* router.post('/', async (req, res, next) => {
     const { input } = req.body;
     const result = await openai.createChatCompletion({
@@ -34,6 +35,7 @@ const openai = new OpenAIApi(configuration);
     });
   }); */
 
+  //Get an AI response based on the user preference:
   router.post('/:id', async (req, res, next) => {
 
     const { id } = req.params;
@@ -51,7 +53,7 @@ const openai = new OpenAIApi(configuration);
             messages: [
               {
                 role: 'system',
-                content: 'You are a nutrition and health assistant. You generate simple recipes based on the user preferences.',
+                content: 'You are a nutrition and health assistant. You generate simple recipes based on the user preferences.', //system gives any instructions to the assistant bot
               },
               {
                 role: 'user',
