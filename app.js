@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, "public"))); //not using the public folder for now
 
-app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api", indexRouter);
 app.use("/api/recipe", recipeRouter);
