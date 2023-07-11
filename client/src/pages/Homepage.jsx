@@ -18,10 +18,8 @@ export default function Homepage() {
           },
         }
       );
-      console.log(response);
       const data = await response.json();
       setSearchResults(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching recipes:", error);
     }
