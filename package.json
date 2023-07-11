@@ -16,6 +16,7 @@
     "morgan": "~1.9.1",
     "myql": "^1.0.0",
     "mysql": "^2.18.1",
+    "openai": "^3.3.0",
     "react-router-dom": "^6.14.1"
   }
 }
