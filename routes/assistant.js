@@ -41,7 +41,7 @@ const openai = new OpenAIApi(configuration);
     const { id } = req.params;
     try {
         const query = await db(`SELECT preference FROM profiles WHERE id = ${id};`);
-        console.log('Query:', query);
+        console.log(query);
         const preference = query.data[0].preference;
         console.log('Results:', preference);
 
