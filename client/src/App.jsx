@@ -7,6 +7,7 @@ import Results from "./components/Results";
 import RecipeCard from "./components/RecipeCard";
 import Favourites from "./components/Favourites";
 import Homepage from "./pages/Homepage";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/results" element={<Results />}></Route>
         <Route path="/recipes/:id" element={<RecipeCard />}></Route>
         <Route path="/favourites" element={<Favourites />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </div>
   );

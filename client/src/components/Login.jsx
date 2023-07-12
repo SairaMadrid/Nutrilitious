@@ -9,6 +9,8 @@ export default function Login() {
     password: "",
   });
   //const [data, setData] = useState([]);
+  //const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate()
 
 const { email, password } = user;
 
@@ -33,10 +35,22 @@ const handlePasswordChange = (e) => {
     }
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    //if no credentials set an error later
+    try {
+      await login();
+      setUser({email: "", password: ""});
+      navigate('/profile')
+    } catch (error) {
+      throw error; //handle errors -> response.data.message?
+    }
+  }
 
   return(
   <div>
   <h1>Login</h1>
+  <form action="" onSubmit={handleLogin}>
   <label className="">Username</label>
       <input 
       className=''
@@ -56,8 +70,9 @@ const handlePasswordChange = (e) => {
             />
        <button 
        className=''
-       onClick={login}>
+       onClick={handleLogin}>
            Sign in
        </button>
+       </form>
        </div>
 )}
