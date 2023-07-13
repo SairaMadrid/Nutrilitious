@@ -5,13 +5,16 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Results from "./components/Results";
 import RecipeCard from "./components/RecipeCard";
+import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage";
 import Profile from "./pages/Profile";
 
 function App() {
   return (
     <div className="wrapper">
+      <Navbar />
       <h1>NutriApp</h1>
+      <h3>Get cooking!</h3>
 
       <Routes>
         <Route exact path="/" element={<Homepage />}></Route>

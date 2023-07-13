@@ -11,8 +11,6 @@
 ##React Router
 
 -To install the Router, run the following command: npm install react-router-dom
--created components for routes
--made changes to main.jsx to include BrowserRouter
 
 ### Notes Irene:
 

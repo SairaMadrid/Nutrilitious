@@ -1,13 +1,9 @@
-.wrapper {
-  padding: 20px;
-}
-
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 15px;
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
-  align-items: center;
+
   height: 100%;
 }
