@@ -4,6 +4,7 @@
 
 - Need to npm install after pulling
 - To access the example data from the DB: npm run migrate
+- import the SearchProvider and use it in any component we want it in
 
 ### Notes Saira:
 
@@ -13,7 +14,8 @@
 
 ### Notes Irene:
 
-- How to test the recipe endpoints on Postman:
+- please add to .env file: SUPER_SECRET=shhh
+
 - How to test the Spoonacular recipe endpoints on Postman:
 - GET recipe titles by ingredients:
 - Open a new tab on Postman, paste the address: http://localhost:4000/api/recipe/findByIngredients; in the Query Params tab insert 'ingredients' under the 'Key' column and the ingredients you want to search under the 'Value' column. With this endpoint you can get a recipe id to fetch cooking instructions later;
