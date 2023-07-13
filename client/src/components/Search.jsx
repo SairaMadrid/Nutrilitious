@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import SearchBar from "./Searchbar";
 import SearchContext from "../contexts/SearchContext";
+import Results from "./Results";
 
 export default function SearchProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
@@ -24,17 +25,13 @@ export default function SearchProvider({ children }) {
         setSearchResults(data);
       }
       if (data.length === 0) {
-        // PLEASE choose one option to inform user regarding faulty input below
-        /*    setSearchResults([
+        setSearchResults([
           {
             id: "invalidInput",
             title:
               "Sorry, we were unable to fetch a recipe based on your input. Please check for typos or missing commas.",
           },
-        ]); */
-        alert(
-          "Sorry, we were unable to fetch a recipe based on your input. Please check for typos or missing commas."
-        );
+        ]);
       }
     } catch (error) {
       console.error("Error fetching recipes:", error);
@@ -45,14 +42,7 @@ export default function SearchProvider({ children }) {
     <>
       {" "}
       <SearchBar onSearch={handleSearch} />
-      <SearchContext.Provider value={searchResults}>
-        {children}
-      </SearchContext.Provider>
-      <ul>
-        {searchResults.map((recipe) => (
-          <li key={recipe.id}>{recipe.title}</li>
-        ))}
-      </ul>
+      <Results searchResults={searchResults} />
     </>
   );
 }

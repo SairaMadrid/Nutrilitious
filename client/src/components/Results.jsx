@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
-export default function Results() {
-  return <h2>Search results</h2>;
+export default function Results({ searchResults }) {
+  return <h2>Map here</h2>;
 }
