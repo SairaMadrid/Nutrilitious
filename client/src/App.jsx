@@ -1,11 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Register from "./components/Register.jsx";
-import Login from "./components/Login.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
 import Results from "./components/Results";
 import RecipeCard from "./components/RecipeCard";
-import Favourites from "./components/Favourites";
 import Homepage from "./pages/Homepage";
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/results" element={<Results />}></Route>
         <Route path="/recipes/:id" element={<RecipeCard />}></Route>
-        <Route path="/favourites" element={<Favourites />}></Route>
       </Routes>
     </div>
   );

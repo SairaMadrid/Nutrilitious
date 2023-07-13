@@ -4,6 +4,7 @@
 
 - Need to npm install after pulling
 - To access the example data from the DB: npm run migrate
+- import the SearchProvider and use it in any component we want it in
 
 ### Notes Saira:
 

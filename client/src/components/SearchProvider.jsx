@@ -24,17 +24,13 @@ export default function SearchProvider({ children }) {
         setSearchResults(data);
       }
       if (data.length === 0) {
-        // PLEASE choose one option to inform user regarding faulty input below
-        /*    setSearchResults([
+        setSearchResults([
           {
             id: "invalidInput",
             title:
               "Sorry, we were unable to fetch a recipe based on your input. Please check for typos or missing commas.",
           },
-        ]); */
-        alert(
-          "Sorry, we were unable to fetch a recipe based on your input. Please check for typos or missing commas."
-        );
+        ]);
       }
     } catch (error) {
       console.error("Error fetching recipes:", error);

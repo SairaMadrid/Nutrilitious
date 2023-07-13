@@ -10,7 +10,7 @@ router.get("/findByIngredients", async function (req, res, next) {
   const ingredients = req.query.ingredients;
   try {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=5`,
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=9`,
       {
         params: {
           apiKey: API_KEY,
