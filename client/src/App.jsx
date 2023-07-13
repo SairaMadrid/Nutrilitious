@@ -8,6 +8,7 @@ import RecipeCard from "./components/RecipeCard.jsx";
 import Favourites from "./components/Favourites.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/results" element={<Results />}></Route>
         <Route path="/recipes/:id" element={<RecipeCard />}></Route>
         <Route path="/favourites" element={<Favourites />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </div>
   );
