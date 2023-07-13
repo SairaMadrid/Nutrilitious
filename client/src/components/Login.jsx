@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -12,26 +12,26 @@ export default function Login() {
   //const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate()
 
-const { email, password } = user;
+  const { email, password } = user;
 
-const handleEmailChange = (e) => {
-  setUser({ ...user, email: e.target.value})
-};
+  const handleEmailChange = (e) => {
+    setUser({ ...user, email: e.target.value });
+  };
 
-const handlePasswordChange = (e) => {
-  setUser({ ...user, password: e.target.value})
-};
+  const handlePasswordChange = (e) => {
+    setUser({ ...user, password: e.target.value });
+  };
 
   const login = async () => {
     try {
-      const {data} = await axios('api/auth/login', {
+      const { data } = await axios("api/auth/login", {
         method: "POST",
         data: user,
       });
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
       console.log(data.token);
     } catch (error) {
-      throw error
+      throw error;
     }
   };
 
