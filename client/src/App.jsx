@@ -6,7 +6,7 @@ import Login from "./pages/Login.jsx";
 import Results from "./components/Results";
 import RecipeCard from "./components/RecipeCard";
 import Homepage from "./pages/Homepage";
-import Profile from "./components/Profile";
+import Profile from "./pages/Profile";
 
 function App() {
   return (

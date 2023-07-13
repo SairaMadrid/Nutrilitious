@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import SearchBar from "./Searchbar";
 import SearchContext from "../contexts/SearchContext";
+import Results from "./Results";
 
 export default function SearchProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
@@ -41,14 +42,7 @@ export default function SearchProvider({ children }) {
     <>
       {" "}
       <SearchBar onSearch={handleSearch} />
-      <SearchContext.Provider value={searchResults}>
-        {children}
-      </SearchContext.Provider>
-      <ul>
-        {searchResults.map((recipe) => (
-          <li key={recipe.id}>{recipe.title}</li>
-        ))}
-      </ul>
+      <Results searchResults={searchResults} />
     </>
   );
 }

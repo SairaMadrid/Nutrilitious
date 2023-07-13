@@ -1,5 +1,5 @@
 import React from "react";
-import SearchProvider from "../components/SearchProvider";
+import Search from "../components/Search";
 
 export default function Homepage() {
   return (
@@ -7,7 +7,7 @@ export default function Homepage() {
       <div>Homepage</div>
       {/* the search bar coming from the search provider below*/}
       <div>
-        <SearchProvider />
+        <Search />
       </div>
     </>
   );
