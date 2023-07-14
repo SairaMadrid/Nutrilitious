@@ -19,6 +19,7 @@ export default function SearchProvider({ children }) {
           },
         }
       );
+
       const data = await response.json();
       if (data) {
         setSearchResults(data);
