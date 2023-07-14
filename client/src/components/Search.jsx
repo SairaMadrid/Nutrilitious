@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import SearchBar from "./Searchbar";
-import SearchContext from "../contexts/SearchContext";
 import Results from "./Results";
 
 export default function SearchProvider({ children }) {
