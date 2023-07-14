@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+//import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
-  const auth = useAuth();
+  //const auth = useAuth();
 
-  const logout = () => {
+/*   const logout = () => {
     auth.logout();
   };
-
+ */
   return (
     <>
       {/* links to show when user is NOT logged in */}
@@ -39,9 +39,9 @@ export default function Navbar() {
         <div>
           <Link to="/results">Search results</Link>
         </div>
-        <button className="btn" onClick={logout}>
+        {/* <button className="btn" onClick={logout}>
           Logout
-        </button>
+        </button> */}
       </div>
     </>
   );
