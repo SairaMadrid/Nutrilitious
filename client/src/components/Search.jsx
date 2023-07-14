@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import SearchBar from "./Searchbar";
-import SearchContext from "../contexts/SearchContext";
 import Results from "./Results";
 
 export default function SearchProvider({ children }) {
@@ -20,6 +19,7 @@ export default function SearchProvider({ children }) {
           },
         }
       );
+
       const data = await response.json();
       if (data) {
         setSearchResults(data);
