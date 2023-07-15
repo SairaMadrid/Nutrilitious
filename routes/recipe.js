@@ -86,4 +86,22 @@ router.get("/complexSearch", async function (req, res, next) {
   }
 });
 
+// GET images by ID
+router.get("/images", async function (req, res, next) {
+  const { id } = req.query;
+  try {
+    const response = await axios.get(
+      `https://api.spoonacular.com/recipes/${id}/information`,
+      {
+        params: {
+          apiKey: API_KEY,
+        },
+      }
+    );
+    res.send({ imageURL: response.data.image });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;
