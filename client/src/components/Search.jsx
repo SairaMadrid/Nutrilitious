@@ -1,8 +1,8 @@
 import { React, useState } from "react";
-import SearchBar from "./Searchbar";
+import SearchBar from "./SearchBar";
 import Results from "./Results";
 
-export default function SearchProvider({ children }) {
+export default function Search({ children }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async (searchItem) => {
