@@ -34,7 +34,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//this is a dummy login, we will need to handle the hashed password in /register and compare it using bcrypt module
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
