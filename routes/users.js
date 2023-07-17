@@ -15,6 +15,17 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+//need this to test /register
+router.get("/all", async function (req, res, next) {
+  try {
+    const result = await db(`SELECT * FROM profiles;`);
+    res.send(result.data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+
 /* GET specific user/profile */
 router.get("/:id", async function (req, res, next) {
   try {

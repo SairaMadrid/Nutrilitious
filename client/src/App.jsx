@@ -23,7 +23,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/results" element={<Results />}></Route>
         <Route path="/recipes/:id" element={<RecipeCard />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/profile" element={<Profile/>}></Route>
       </Routes>
     </div>
   );
