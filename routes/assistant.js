@@ -4,6 +4,7 @@ require('dotenv').config();
 const axios = require('axios'); 
 const { Configuration, OpenAIApi } = require("openai");
 const db = require("../model/helper");
+const userShouldBeLoggedIn = require('../guard/userShouldBeLoggedIn');
 
 
 const openaikey = process.env.OPENAI_KEY;
@@ -36,11 +37,9 @@ const openai = new OpenAIApi(configuration);
   }); */
 
   //Get an AI response based on the user preference:
-  router.post('/:id', async (req, res, next) => {
-
-    const { id } = req.params;
+  router.post('/', userShouldBeLoggedIn, async (req, res, next) => {
     try {
-        const query = await db(`SELECT preference FROM profiles WHERE id = ${id};`);
+        const query = await db(`SELECT preference FROM profiles WHERE id = ${req.id};`);
         console.log(query);
         const preference = query.data[0].preference;
         console.log('Results:', preference);
@@ -48,12 +47,12 @@ const openai = new OpenAIApi(configuration);
         const completion = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo-0613',
             //prompt: preference, //this breaks my code
-            max_tokens: 350, //max length of the assistant's output
-            temperature: 0.2, //how precise the assistant should be; if the value is higher (e.g. 2) the output will be more random
+            max_tokens: 400, //can increase later
+            temperature: 0.6, 
             messages: [
               {
                 role: 'system',
-                content: 'You are a nutrition and health assistant. You generate simple recipes based on the user preferences.', //system gives any instructions to the assistant bot
+                content: 'You are a nutrition and health assistant. You generate simple recipes based on the user preferences. Try to generate a different recipe each time the output is generated.', //system gives any instructions to the assistant bot
               },
               {
                 role: 'user',
