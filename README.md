@@ -11,6 +11,8 @@
 
 -To install the Router, run the following command: npm install react-router-dom
 
+##Authentication and authorisation endpoints
+
 ### Notes Irene:
 
 - please add to .env file: SUPER_SECRET=shhh
