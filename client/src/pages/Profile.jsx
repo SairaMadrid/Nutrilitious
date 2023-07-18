@@ -69,8 +69,8 @@ useEffect(() => {
   
 
     return (
-      <div>
-      <button onClick={logout}>Sign out</button>
+      <div className="container">
+      <button className="btn btn-success" onClick={logout}>Sign out</button>
       <h1>Profile</h1>
       <h3>{`${userData.first_name} ${userData.last_name}`}</h3>
       <h5>{`${userData.cooking_skills}`}</h5>
@@ -82,8 +82,8 @@ useEffect(() => {
       </div>
       <h3>Favourites</h3>
       <br />
-<p>Ask our AI assistant to generate a recipe based on your preferences!</p>
-      <button onClick={generateRecipe}>Inspire me</button>
+<p>Click on the button below to ask NutriGPT, our AI nutrition assistant, to generate a simple yet delicious recipe based on your preferences!</p>
+      <button className="btn btn-success" onClick={generateRecipe}>Inspire me!</button>
       {output && (
         <pre className="text">{output}</pre>
       )}
