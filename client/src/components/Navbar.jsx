@@ -32,6 +32,9 @@ export default function Navbar() {
             <Link to="/profile">Profile</Link>{" "}
             {/* this could route back to the login page if not logged in and register page if not a member */}
           </div>
+          <div>
+            <Link to="/">Homepage</Link>
+          </div>
           <button className="btn" onClick={logout}>
             Logout
           </button>
