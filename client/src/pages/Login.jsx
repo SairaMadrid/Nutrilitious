@@ -1,53 +1,34 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+//import axios from "axios";
+//import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
-  const [user, setUser] = useState({
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  //const [data, setData] = useState([]);
-  //const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
-  const { email, password } = user;
+  const { email, password } = credentials;
 
-  const handleEmailChange = (e) => {
-    setUser({ ...user, email: e.target.value });
-  };
+  const auth = useAuth();
 
-  const handlePasswordChange = (e) => {
-    setUser({ ...user, password: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
   };
 
   const login = async () => {
     try {
-      const { data } = await axios("api/auth/login", {
-        method: "POST",
-        data: user,
-      });
-      localStorage.setItem("token", data.token);
-      console.log(data.token);
+      await auth.login(credentials);
     } catch (error) {
-      throw error;
-    }
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    //if no credentials set an error later
-    try {
-      await login();
-      setUser({ email: "", password: "" });
-      navigate("/profile");
-    } catch (error) {
-      throw error; //handle errors -> response.data.message?
+      console.log(error);
     }
   };
 
   return (
+
     <div className="container text-center">
       <h1 className="pb-4">Welcome Back!</h1>
       <div class="row">
@@ -88,6 +69,7 @@ export default function Login() {
       </form>
       </div>
       <p className="py-3">Don't have an account? <a className="link" href="/register">Sign up</a></p>
+
     </div>
   );
 }
