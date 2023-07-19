@@ -1,19 +1,36 @@
+.wrapper {
+  padding: 20px;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
 
-
-h1, h2, h3, h4, h6 {
-  font-family: 'Baskervville', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Baskervville", serif;
   font-style: normal;
   font-weight: normal;
 }
+
 body {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
 }
 
 .text {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
@@ -25,7 +42,7 @@ body {
 }
 
 .link {
-  color: #FF9C00;
+  color: #ff9c00;
   text-decoration: none;
 }
 .text-sm {

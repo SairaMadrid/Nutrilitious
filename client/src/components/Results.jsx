@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 
-export default function Results({ searchResults }) {
+export default function Results({ searchResults, recipeClicked }) {
   const [imageURLs, setImageURLs] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,10 @@ export default function Results({ searchResults }) {
     getRecipeImages();
   }, [searchResults]);
 
+  const handleRecipeClick = (index) => {
+    recipeClicked(index);
+  };
+
   return (
     <>
       <ul>
@@ -36,7 +40,8 @@ export default function Results({ searchResults }) {
             {result.title}
             {imageURLs[index] && (
               <img
-                style={{ width: "200px", height: "auto" }}
+                onClick={() => handleRecipeClick(index)}
+                style={{ width: "12em", height: "auto" }}
                 src={imageURLs[index]}
               />
             )}
