@@ -1,46 +1,36 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+//import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
-  const [user, setUser] = useState({
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  //const [data, setData] = useState([]);
-  //const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { email, password } = credentials;
   const navigate = useNavigate();
 
-  const { email, password } = user;
+  const auth = useAuth();
 
   const handleEmailChange = (e) => {
-    setUser({ ...user, email: e.target.value });
+    setCredentials({ ...credentials, email: e.target.value });
   };
 
   const handlePasswordChange = (e) => {
-    setUser({ ...user, password: e.target.value });
+    setCredentials({ ...credentials, password: e.target.value });
   };
 
-  const login = async () => {
-    try {
-      const { data } = await axios("api/auth/login", {
-        method: "POST",
-        data: user,
-      });
-      localStorage.setItem("token", data.token);
-      console.log(data.token);
-    } catch (error) {
-      throw error;
-    }
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     //if no credentials set an error later
     try {
-      await login();
-      setUser({ email: "", password: "" });
+      await auth.login(credentials);
+      setCredentials({ email: "", password: "" });
       navigate("/profile");
     } catch (error) {
       throw error; //handle errors -> response.data.message?
@@ -48,30 +38,58 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form action="" onSubmit={handleLogin}>
-        <label className="">Username</label>
-        <input
-          className=""
-          value={email}
-          onChange={handleEmailChange}
-          name="username"
-          type="text"
-        />
+    <div className="container text-center">
+      <h1 className="pb-4">Welcome Back!</h1>
+      <div className="row">
+        <form action="" onSubmit={handleLogin}>
+          <div className="col-sm-4 offset-sm-4 mt-2 mb-4">
+            <label className="form-label start">Email</label>
+            <div className="form-floating">
+              <input
+                className="form-control"
+                value={email}
+                onChange={handleEmailChange}
+                name="username"
+                type="text"
+                placeholder="email"
+              />
+              <label className="form-label text-sm">Enter Email</label>
+            </div>
+          </div>
+          <div className="col-sm-4 offset-sm-4 my-3">
+            <label className="form-label start">Password</label>
+            <div className="form-floating">
+              <input
+                className="form-control"
+                value={password}
+                onChange={handlePasswordChange}
+                name="password"
+                type="password"
+                placeholder="password"
+              />
+              <label className="form-label text-sm">Enter Password</label>
+            </div>
+          </div>
+          <p>
+            <a className="link" href="#">
+              Forgot password?
+            </a>
+          </p>
 
-        <label className="">Password</label>
-        <input
-          className=""
-          value={password}
-          onChange={handlePasswordChange}
-          name="password"
-          type="password"
-        />
-        <button className="" onClick={handleLogin}>
-          Sign in
-        </button>
-      </form>
+          <button
+            className="btn btn-success my-2 py-2 col-12 col-sm-4"
+            onClick={handleLogin}
+          >
+            Sign in<i className="fa-solid fa-arrow-right ms-3"></i>
+          </button>
+        </form>
+      </div>
+      <p className="py-3">
+        Don't have an account?
+        <a className="link" href="/register">
+          Sign up
+        </a>
+      </p>
     </div>
   );
 }

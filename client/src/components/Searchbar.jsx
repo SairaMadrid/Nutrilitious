@@ -15,7 +15,9 @@ export default function SearchBar({ onSearch }) {
     <div>
       <input
         type="text"
+
         placeholder="Search by ingredients..."
+
         value={searchItems}
         onChange={handleChange}
       />{" "}
