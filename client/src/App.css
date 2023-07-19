@@ -48,3 +48,29 @@ body {
 .text-sm {
   font-size: 12px;
 }
+.error {
+  color: red;
+}
+
+.hide {
+  visibility: hidden;
+  display: none;
+}
+.typing {
+  font-style: italic;
+}
+.text-desc {
+  font-family: 'Karla', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  color: rgb(107, 107, 107);
+}
+.avatar{
+  width: 100px;
+  border-radius: 50%;
+}
+.text-bigger{
+  font-size: 17px;
+  width: 65%;
+}

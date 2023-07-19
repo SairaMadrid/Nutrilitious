@@ -1,33 +1,45 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 export default function Register() {
-  const [user, setUser] = useState({
-    first_name: "test",
-    last_name: "test",
-    email: "test",
-    password: "test",
-    preference: "test",
-    cooking_skills: "test",
-    description: "Tell us something",
-  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const { user, setUser } = useAuth()
+  const auth = useAuth();
 
-  const navigate = useNavigate();
+const handleChange = (e) => {
+  e.persist();
+  auth.setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
+};
 
-  const handleChange = (e) => {
-    e.persist();
-    setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
-  };
-
-  const register = () => {
-    axios
-      .post("/api/auth/register", user) // Assuming your API endpoint is /api/auth/register
-      .then((result) => {
-        navigate("/login");
-      })
-      .catch((error) => console.log(error));
-  };
+const handleRegister = async () => {
+  if (!user.first_name || 
+      !user.last_name || 
+      !user.email || 
+      !user.password || 
+      !user.preference || 
+      !user.cooking_skills || 
+      !user.description) {
+    setErrorMessage("Please fill out all fields");
+  } else {
+    try {
+      await auth.register();
+      auth.setUser({
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      preference: "",
+      cooking_skills: "",
+      description: "",
+      });
+      setErrorMessage("");
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+ 
+}
 
   return (
     <div className="container text-center">
@@ -37,7 +49,7 @@ export default function Register() {
 
       <input
         className=""
-        value={user.first_name}
+        value={auth.user.first_name}
         onChange={handleChange}
         name="first_name"
         type="text"
@@ -47,7 +59,7 @@ export default function Register() {
       <label className="">Last name</label>
       <input
         className=""
-        value={user.last_name}
+        value={auth.user.last_name}
         onChange={handleChange}
         name="last_name"
         type="text"
@@ -57,7 +69,7 @@ export default function Register() {
       <label className="">Email</label>
       <input
         className=""
-        value={user.email}
+        value={auth.user.email}
         onChange={handleChange}
         name="email"
         type="text"
@@ -67,7 +79,7 @@ export default function Register() {
       <label className="">Password</label>
       <input
         className=""
-        value={user.password}
+        value={auth.user.password}
         onChange={handleChange}
         name="password"
         type="password"
@@ -77,7 +89,7 @@ export default function Register() {
       <label className="">Preference</label>
       <input
         className=""
-        value={user.preference}
+        value={auth.user.preference}
         onChange={handleChange}
         name="preference"
         type="text"
@@ -87,7 +99,7 @@ export default function Register() {
       <label className="">Cooking Skills</label>
       <input
         className=""
-        value={user.cooking_skills}
+        value={auth.user.cooking_skills}
         onChange={handleChange}
         name="cooking_skills"
         type="text"
@@ -97,16 +109,18 @@ export default function Register() {
       <label className="">Description</label>
       <input
         className=""
-        value={user.description}
+        value={auth.user.description}
         onChange={handleChange}
         name="description"
         type="text"
         placeholder="Tell us something about yourself"
       />
 
-      <button className="btn" onClick={handleChange}>
+      <button className="btn btn-success" onClick={handleRegister}>
         Sign up
       </button>
+      <br />
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 }
