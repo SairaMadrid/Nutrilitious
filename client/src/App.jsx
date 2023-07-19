@@ -14,13 +14,11 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
-
     <div className="wrapper">
-    <AuthProvider>
-      <Navbar />
-      <h1>Nutrilitious</h1>
-      <h3>Get cooking!</h3>
-
+      <AuthProvider>
+        <Navbar />
+        <h1>Nutrilitious</h1>
+        <h3>Get cooking!</h3>
 
         <Routes>
           <Route exact path="/" element={<Homepage />}></Route>
@@ -37,8 +35,8 @@ function App() {
             }
           ></Route>
         </Routes>
-      </div>
-    </AuthProvider>
+      </AuthProvider>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* import { useNavigate } from "react-router-dom"; */
 import axios from "axios";
 
 export default function Register() {
@@ -14,8 +14,8 @@ export default function Register() {
   });
 }
 
-const navigate = useNavigate();
-
+/* const navigate = useNavigate();
+ */
 const handleChange = (e) => {
   e.persist();
   setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -32,8 +32,8 @@ const handleChange = (e) => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="container text-center">
+      <h1 className="pb-4">Sign up here!</h1>
 
       <label className="">First name</label>
       <input
