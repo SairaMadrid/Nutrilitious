@@ -2,6 +2,8 @@ require("dotenv").config();
 var express = require("express");
 var router = express.Router();
 const axios = require("axios");
+let userShouldBeLoggedIn = require("../guard/userShouldBeLoggedIn");
+const db = require("../model/helper");
 
 const API_KEY = process.env.API_KEY;
 
@@ -103,5 +105,17 @@ router.get("/images", async function (req, res, next) {
     res.status(500).send(error);
   }
 });
+
+ router.post("/add-favourites", userShouldBeLoggedIn, async (req, res) => {
+  const {name, image, profiles_id} = req.body;
+  try {
+await db(`INSERT INTO favourites (name, image, profiles_id) VALUES ("${name}", "${image}", ${profiles_id})`);
+
+const result = await db(`SELECT profiles.first_name, favourites.name FROM profiles LEFT JOIN favourites ON profiles.id = favourites.profiles_id WHERE profiles.id  = ${req.id};`);
+res.send(result.data);
+  } catch (error) {
+    res.status(400).send({ message: error.message })
+  }
+}); 
 
 module.exports = router;
