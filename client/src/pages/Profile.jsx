@@ -3,45 +3,43 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-const [userData, setUserData] = useState({
-  first_name: "",
-  last_name: "",
-  cooking_skills: "",
-  preference: "",
-  description: ""
-});
-const [errorMessage, setErrorMessage] = useState("");
-const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    first_name: "",
+    last_name: "",
+    cooking_skills: "",
+    preference: "",
+    description: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-//logout in the navbar with the auth.js
-const logout = () => {
-  localStorage.removeItem("token");
-  setUserData(null);
-  navigate("/login");
-};
+  //logout in the navbar with the auth.js
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUserData(null);
+    navigate("/login");
+  };
 
-useEffect(() => {
   const getProfile = async () => {
     try {
-      const { data } = await axios('/api/auth/profile', {
+      const { data } = await axios("/api/auth/profile", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"), //whitespace after Bearer
-        }
+        },
       });
       setUserData(data);
-      setErrorMessage(""),
-      console.log(data);
+      setErrorMessage(""), console.log(data);
     } catch (error) {
       setErrorMessage(error.message);
       console.log(error);
-      }
+    }
   };
-  getProfile()
-}, []);
-  
+  useEffect(() => {
+    getProfile();
+  }, []);
 
-    return (
-      <div>
+  return (
+    <div>
       <button onClick={logout}>Sign out</button>
       <h1>Profile</h1>
       <h3>{`${userData.first_name} ${userData.last_name}`}</h3>
@@ -51,8 +49,6 @@ useEffect(() => {
         <h2>My eating and cooking preferences</h2>
         <p>{`${userData.preference}`}</p>
       </div>
-      </div>
-  
-    )
-    
+    </div>
+  );
 }
