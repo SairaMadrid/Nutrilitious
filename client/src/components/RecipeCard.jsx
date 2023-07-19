@@ -67,7 +67,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
           <h5>Instructions:</h5>
           <div
             className="card-text"
-            dangerouslySetInnerHTML={{ __html: instructions }}
+            dangerouslySetInnerHTML={{ __html: instructions }} //This line I asked ChatGPT about and it works well
           ></div>
           <div className="card-text" style={{ marginTop: "2%" }}>
             <h6>
