@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function Profile() {
-  const [userData, setUserData] = useState({
-    id: null,
-    first_name: "",
-    last_name: "",
-    cooking_skills: "",
-    preference: "",
-    description: "",
-  });
+ 
   const [errorMessage, setErrorMessage] = useState("");
   const [output, setOutput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
+  const auth = useAuth();
 
 useEffect(() => {
   const getProfile = async () => {
@@ -24,7 +18,7 @@ useEffect(() => {
           Authorization: "Bearer " + localStorage.getItem("token"), 
         },
       });
-      setUserData(data);
+      auth.setUser(data);
       setErrorMessage("");
     } catch (error) {
       setErrorMessage(error.message);
@@ -44,14 +38,17 @@ useEffect(() => {
         },
       });
       if (!data) {
+        setIsTyping(false);
         throw new Error("Invalid response object");
       }
       const { output } = data;
+      setIsTyping(true);
       setOutput(output);
       console.log(output);
     } catch (error) {
       console.log(error);
       setErrorMessage("An error occurred while fetching the response");
+      setIsTyping(false);
     }
   };
 
@@ -59,13 +56,13 @@ useEffect(() => {
     <div className="container">
 
       <h1>Profile</h1>
-      <h3>{`${userData.first_name} ${userData.last_name}`}</h3>
-      <h5>{`${userData.cooking_skills}`}</h5>
-      <p>{`${userData.description}`}</p>
+      <h3>{`${auth.user.first_name} ${auth.user.last_name}`}</h3>
+      <h5>{`${auth.user.cooking_skills}`}</h5>
+      <p>{`${auth.user.description}`}</p>
 
       <div>
         <h3>My eating and cooking preferences</h3>
-        <p>{`${userData.preference}`}</p>
+        <p>{`${auth.user.preference}`}</p>
       </div>
 
       <h3>Favourites</h3>
