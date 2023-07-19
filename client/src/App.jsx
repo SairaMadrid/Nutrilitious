@@ -9,13 +9,14 @@ import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage";
 import Profile from "./pages/Profile";
 import AuthProvider from "./components/AuthProvider";
-/* import useAuth from "./hooks/useAuth"; */
 import PrivateRoute from "./components/PrivateRoute";
+
 
 function App() {
   return (
+    <AuthProvider>
     <div className="wrapper">
-      <AuthProvider>
+      
         <Navbar />
         <h1>Nutrilitious</h1>
         <h3>Get cooking!</h3>
@@ -35,8 +36,8 @@ function App() {
             }
           ></Route>
         </Routes>
-      </AuthProvider>
     </div>
+    </AuthProvider>
   );
 }
 
