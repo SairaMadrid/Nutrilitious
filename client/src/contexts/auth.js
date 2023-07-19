@@ -1,8 +1,5 @@
-//create
-//provide
-//consume
 
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 const AuthContext = createContext();
 export default AuthContext;

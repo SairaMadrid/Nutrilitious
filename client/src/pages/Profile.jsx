@@ -15,32 +15,24 @@ export default function Profile() {
   const [output, setOutput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const navigate = useNavigate();
 
-  //logout in the navbar with the auth.js
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUserData(null);
-    navigate("/login");
-  };
-
+useEffect(() => {
   const getProfile = async () => {
     try {
       const { data } = await axios("/api/auth/profile", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"), //whitespace after Bearer
+          Authorization: "Bearer " + localStorage.getItem("token"), 
         },
       });
       setUserData(data);
-      setErrorMessage(""), console.log(data);
+      setErrorMessage("");
     } catch (error) {
       setErrorMessage(error.message);
       console.log(error);
     }
-  };
-
-  /* getProfile(){
-}[]; */
+  }
+  getProfile();
+}, []);
 
   const generateRecipe = async () => {
     try {
@@ -65,9 +57,6 @@ export default function Profile() {
 
   return (
     <div className="container">
-      <button className="btn btn-success" onClick={logout}>
-        Sign out
-      </button>
 
       <h1>Profile</h1>
       <h3>{`${userData.first_name} ${userData.last_name}`}</h3>

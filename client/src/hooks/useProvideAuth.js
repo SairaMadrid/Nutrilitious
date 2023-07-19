@@ -19,10 +19,13 @@ export default function useProvideAuth() {
     }
   };
 
+
   const logout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
+
+
 
   return {
     isLoggedIn,

@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
   const auth = useAuth();
-  console.log(auth);
+  //console.log(auth);
 
   const logout = () => {
     auth.logout();
