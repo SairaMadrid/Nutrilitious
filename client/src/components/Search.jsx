@@ -47,7 +47,7 @@ export default function Search({ children }) {
   return (
     <>
       {" "}
-      <SearchBar onSearch={handleSearch} />
+      {!fullRecipe.id && <SearchBar onSearch={handleSearch} />}
       {!fullRecipe.id && (
         <Results
           recipeClicked={handleRecipeClick}

@@ -11,20 +11,25 @@
   align-items: center;
   height: 100%;
 }
-h1, h2, h3, h4, h6 {
-  font-family: 'Baskervville', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Baskervville", serif;
   font-style: normal;
   font-weight: normal;
 }
 body {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
 }
 
 .text {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
