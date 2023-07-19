@@ -46,13 +46,16 @@ const handleRegister = async () => {
       <h1 className="pb-4">Sign up here!</h1>
 
       <label className="">First name</label>
+
       <input
         className=""
         value={auth.user.first_name}
         onChange={handleChange}
         name="first_name"
         type="text"
+        placeholder="First name"
       />
+
       <label className="">Last name</label>
       <input
         className=""
@@ -60,6 +63,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="last_name"
         type="text"
+        placeholder="Last name"
       />
 
       <label className="">Email</label>
@@ -69,6 +73,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="email"
         type="text"
+        placeholder="email"
       />
 
       <label className="">Password</label>
@@ -78,6 +83,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="password"
         type="password"
+        placeholder="Choose a strong password"
       />
 
       <label className="">Preference</label>
@@ -87,6 +93,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="preference"
         type="text"
+        placeholder="Any dietary requirements?"
       />
 
       <label className="">Cooking Skills</label>
@@ -96,6 +103,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="cooking_skills"
         type="text"
+        placeholder="How good are you at cooking?"
       />
 
       <label className="">Description</label>
@@ -105,6 +113,7 @@ const handleRegister = async () => {
         onChange={handleChange}
         name="description"
         type="text"
+        placeholder="Tell us something about yourself"
       />
 
       <button className="btn btn-success" onClick={handleRegister}>
@@ -114,4 +123,4 @@ const handleRegister = async () => {
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
-};
+}

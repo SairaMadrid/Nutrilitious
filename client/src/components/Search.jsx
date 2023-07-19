@@ -1,9 +1,11 @@
 import { React, useState } from "react";
 import SearchBar from "./SearchBar";
 import Results from "./Results";
+import RecipeCard from "./RecipeCard";
 
 export default function Search({ children }) {
   const [searchResults, setSearchResults] = useState([]);
+  const [fullRecipe, setFullRecipe] = useState({});
 
   const handleSearch = async (searchItem) => {
     const ingredients = searchItem;
@@ -38,11 +40,23 @@ export default function Search({ children }) {
     }
   };
 
+  const handleRecipeClick = async (index) => {
+    setFullRecipe(searchResults[index]);
+  };
+
   return (
     <>
       {" "}
-      <SearchBar onSearch={handleSearch} />
-      <Results searchResults={searchResults} />
+      {!fullRecipe.id && <SearchBar onSearch={handleSearch} />}
+      {!fullRecipe.id && (
+        <Results
+          recipeClicked={handleRecipeClick}
+          searchResults={searchResults}
+        />
+      )}
+      {fullRecipe.id && (
+        <RecipeCard recipe={fullRecipe} setRecipe={setFullRecipe} />
+      )}
     </>
   );
 }

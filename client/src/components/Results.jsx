@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 
-export default function Results({ searchResults }) {
+export default function Results({ searchResults, recipeClicked }) {
   const [imageURLs, setImageURLs] = useState([]);
 
   useEffect(() => {
@@ -28,21 +28,34 @@ export default function Results({ searchResults }) {
     getRecipeImages();
   }, [searchResults]);
 
+  const handleRecipeClick = (index) => {
+    recipeClicked(index);
+  };
+
   return (
-    <>
-      <ul>
-        {searchResults.map((result, index) => (
-          <li key={result.id}>
-            {result.title}
+    <div className="row row-cols-1 row-cols-md-3 g-4">
+      {searchResults.map((result, index) => (
+        <div key={result.id} className="col">
+          <div className="card">
             {imageURLs[index] && (
               <img
-                style={{ width: "200px", height: "auto" }}
+                className="card-img-top"
                 src={imageURLs[index]}
+                alt={`Image of ${result.title}`}
+                style={{
+                  height: "200px",
+                  objectFit: "cover",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleRecipeClick(index)}
               />
             )}
-          </li>
-        ))}
-      </ul>
-    </>
+            <div className="card-body">
+              <h5 className="card-title">{result.title}</h5>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
