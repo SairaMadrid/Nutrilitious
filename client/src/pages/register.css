@@ -33,7 +33,7 @@ label {
   margin-left: 5px;
 }
 
-input {
+.register-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -41,7 +41,7 @@ input {
   border-radius: 5px;
 }
 
-button {
+.register-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;

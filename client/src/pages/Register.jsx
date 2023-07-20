@@ -21,6 +21,7 @@ export default function Register() {
 
   const handleChange = (e) => {
     e.persist();
+    console.log("test");
     auth.setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
 
@@ -60,7 +61,7 @@ export default function Register() {
 
       <label className="">First name</label>
       <input
-        className=""
+        className="register-input"
         value={auth.user.first_name}
         onChange={handleChange}
         name="first_name"
@@ -70,7 +71,7 @@ export default function Register() {
 
       <label className="">Last name</label>
       <input
-        className=""
+        className="register-input"
         value={auth.user.last_name}
         onChange={handleChange}
         name="last_name"
