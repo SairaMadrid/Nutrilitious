@@ -9,6 +9,7 @@ export default function Register() {
   const { user, setUser } = useAuth();
   const auth = useAuth();
   const [cookingSkills, setCookingSkills] = useState("");
+  const [password, setPassword] = useState(""); // Define the password state
 
   const handleSkillsChange = (e) => {
     e.persist();
@@ -17,6 +18,11 @@ export default function Register() {
     } else {
       auth.setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
     }
+  };
+
+  const handlePasswordChange = (e) => {
+    e.persist();
+    setPassword(e.target.value); // Update the password state
   };
 
   const handleChange = (e) => {
@@ -56,9 +62,11 @@ export default function Register() {
   };
 
   return (
-    <div className="container text-center">
-      <h3 className="pb-4">Sign up here!</h3>
-
+    <div className="register-container text-left">
+      <h3 className="register-header">Create an account</h3>
+      <h4 className="pb-4">
+        Let's help you set up an account, it won't take long.
+      </h4>
       <label className="">First name</label>
       <input
         className="register-input"
@@ -81,7 +89,7 @@ export default function Register() {
 
       <label className="">Email</label>
       <input
-        className=""
+        className="register-input"
         value={auth.user.email}
         onChange={handleChange}
         name="email"
@@ -90,11 +98,14 @@ export default function Register() {
       />
 
       <label className="">Password</label>
-      <PasswordInput value={auth.user.password} onChange={handleChange} />
+      <PasswordInput
+        value={auth.user.password}
+        onChange={handlePasswordChange}
+      />
 
       <label className="">Preference</label>
       <input
-        className=""
+        className="register-input"
         value={auth.user.preference}
         onChange={handleChange}
         name="preference"
@@ -148,17 +159,27 @@ export default function Register() {
 
       <label className="">Description</label>
       <input
-        className=""
+        className="register-input"
         value={auth.user.description}
         onChange={handleSkillsChange}
         name="description"
         type="text"
-        placeholder="Tell us something about yourself"
+        placeholder="Describe yourself"
       />
-
-      <button className="register-button" onClick={handleRegister}>
-        Sign up
+      <br></br>
+      <button
+        className="btn btn-success my-2 py-2 col-12 col-sm-4"
+        onClick={handleRegister}
+      >
+        Sign up<i className="fa-solid fa-arrow-right ms-3"></i>
       </button>
+      <p className="py-3">
+        Already a member?
+        <a className="link" href="/login">
+          {" "}
+          Sign in
+        </a>
+      </p>
       <br />
       {errorMessage && <p>{errorMessage}</p>}
     </div>
