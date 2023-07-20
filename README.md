@@ -10,7 +10,9 @@
 
 -To install the Router, run the following command: npm install react-router-dom
 
-##Authentication and authorisation endpoints
+##Password hidden or seen on register page
+
+You need to install this package: npm install react-icons --save
 
 ### Notes Irene:
 
