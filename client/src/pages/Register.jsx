@@ -156,7 +156,7 @@ export default function Register() {
         placeholder="Tell us something about yourself"
       />
 
-      <button className="btn btn-success" onClick={handleRegister}>
+      <button className="register-button" onClick={handleRegister}>
         Sign up
       </button>
       <br />
