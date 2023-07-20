@@ -61,3 +61,7 @@ body {
   font-size: 17px;
   width: 65%;
 }
+
+.password-button {
+  color: red;
+}

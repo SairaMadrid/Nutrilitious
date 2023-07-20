@@ -27,9 +27,9 @@ const PasswordInput = forwardRef(({ value, onChange }, ref) => {
         type={showPassword ? "text" : "password"}
         value={value}
         onChange={onChange}
-        placeholder="Password"
+        placeholder="Enter password"
       />
-      <button type="button" onClick={handleTogglePassword}>
+      <button type="passwordbutton" onClick={handleTogglePassword}>
         {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
       </button>
     </div>

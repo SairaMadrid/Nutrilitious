@@ -1,31 +1,36 @@
 /* register.css */
 
-.container {
+.register-container {
   max-width: 400px;
   margin: 0 auto;
+  padding: 20px;
 }
 
-h3 {
+.register-header {
   font-size: 40px;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
-label {
+.register-label {
   display: block;
   margin-bottom: 5px;
 }
 
 /* Style the container div as a flex container */
+.register-input,
 .checkbox-container {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 /* Style each checkbox label */
 .checkbox-container label {
-  display: flex;
-  align-items: left;
+  display: block;
+  margin-bottom: 5px;
 }
 
 /* Style the checkbox input */
@@ -42,15 +47,18 @@ label {
 }
 
 .register-button {
+  display: block;
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px;
+  background-color: #4caf50;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3;
+.register-button:hover {
+  background-color: #45a049;
 }
