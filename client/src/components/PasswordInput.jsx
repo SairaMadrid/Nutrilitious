@@ -25,8 +25,8 @@ const PasswordInput = forwardRef(({ value, onChange }, ref) => {
       <input
         ref={inputRef}
         type={showPassword ? "text" : "password"}
-        value={value}
-        onChange={onChange}
+         value={value}
+        onChange={onChange} 
         placeholder="Enter password"
       />
       <button type="passwordbutton" onClick={handleTogglePassword}>

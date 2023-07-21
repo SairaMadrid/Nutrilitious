@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import useAuth from "../hooks/useAuth";
 import chef from "../assets/chef.jpg";
 
 export default function Profile() {
- 
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    preference: "",
+    cooking_skills: "",
+    description: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
+
   const [output, setOutput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-
-  const auth = useAuth();
 
 useEffect(() => {
   const getProfile = async () => {
@@ -19,7 +25,7 @@ useEffect(() => {
           Authorization: "Bearer " + localStorage.getItem("token"), 
         },
       });
-      auth.setUser(data);
+      setUser(data);
       setErrorMessage("");
     } catch (error) {
       setErrorMessage(error.message);
@@ -63,18 +69,17 @@ useEffect(() => {
       <img className="avatar" src={chef} alt="avatar" />
       </div>
       <div className="col-6 text-center mt-4">
-      <h3>{`${auth.user.first_name} ${auth.user.last_name}`}</h3>
+      <h3>{user.first_name} {user.last_name}</h3>
       </div>
       </div>
 <br />
       <div className="container py-2">
-      <h3 className="my-2">{`My cooking skills`}</h3>
-      <p className="text-desc">{auth.user.cooking_skills}</p>
-      <p className="text-desc">{`${auth.user.description}`}</p>
+      <p className="text-desc" style={{fontSize: "18px"}}>{user.cooking_skills} chef</p>
+      <p className="text-desc">{user.description}</p>
 
       <div>
         <h4 className="my-2">My eating and cooking preferences</h4>
-        <p className="text-desc">{`${auth.user.preference}`}</p>
+        <p className="text-desc">{user.preference}</p>
       </div>
       <button className="btn btn-success my-2 px-4">Favorites</button>
       </div>
