@@ -1,55 +1,107 @@
 import React, { useState } from "react";
 import axios from "axios";
-import useAuth from "../hooks/useAuth";
+import "./register.css";
+import PasswordInput from "../components/PasswordInput";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    preference: "",
+    cooking_skills: "",
+    description: "",
+  });
   const [errorMessage, setErrorMessage] = useState("");
-  const { user, setUser } = useAuth()
-  const auth = useAuth();
+  //const [cookingSkills, setCookingSkills] = useState("");
+  const [password, setPassword] = useState(""); // Define the password state
 
-const handleChange = (e) => {
-  e.persist();
-  auth.setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
-};
+  const navigate = useNavigate();
 
-const handleRegister = async () => {
-  if (!user.first_name || 
-      !user.last_name || 
-      !user.email || 
-      !user.password || 
-      !user.preference || 
-      !user.cooking_skills || 
-      !user.description) {
-    setErrorMessage("Please fill out all fields");
-  } else {
-    try {
-      await auth.register();
-      auth.setUser({
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      preference: "",
-      cooking_skills: "",
-      description: "",
-      });
-      setErrorMessage("");
-    } catch (error) {
-      throw new Error(error);
+ /*  const handleSkillsChange = (e) => {
+    e.persist();
+    if (e.target.name === "cooking_skills") {
+      setCookingSkills(e.target.value);
+    } else {
+      setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
     }
-  }
- 
-}
+  }; */
+  const handleSkillsChange = (e) => {
+    const { name, value, checked, type } = e.target; //here we are doing an object destructuring so that instead of typing e.target.value we can simply type 'value' and so on
+    if (type === "checkbox") { //I think the reason why this function wasnt updating the user state was because we are using a specific type of input, checkbox, so it's treated a little bit different from a regular input
+      //in this if statement we check if the type of the input is checkbox
+      setUser((state) => ({
+        ...state,
+        [name]: checked ? value : "", //if it is a checkbox and if it was checked (clicked) then e.target.name equals to value. In our case, it's either "novice" or the others names we gave them. If it's not checked, we're clearing the value and setting it to an empty string
+      }));
+    } else { //this will handle the case when the input's type is not a checkbox. Then it will set the input value with whatever the user typed in
+      setUser((state) => ({
+        ...state, [name]: value,
+      }));
+    }
+  };
+  
+
+ /*  const handlePasswordChange = (e) => {
+    e.persist();
+    setPassword(e.target.value); // Update the password state
+  }; */
+
+  const handleChange = (e) => {
+    e.persist();
+    setUser((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
+
+  const register = async () => {
+    try {
+      await axios.post("/api/auth/register", user);
+      navigate("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleRegister = async () => {
+    if (
+      !user.first_name ||
+      !user.last_name ||
+      !user.email ||
+      !user.password ||
+      !user.preference ||
+      !user.description
+    ) {
+      setErrorMessage("Please fill out all fields");
+    } else {
+      try {
+        await register();
+        setUser({
+          first_name: "",
+          last_name: "",
+          email: "",
+          password: "",
+          preference: "",
+          description: "",
+        });
+        setErrorMessage("");
+      } catch (error) {
+        console.log(error.message);
+        setErrorMessage("There was an error, please try again")
+      }
+    }
+  };
 
   return (
-    <div className="container text-center">
-      <h1 className="pb-4">Sign up here!</h1>
-
+    <div className="register-container text-left">
+      <h3 className="register-header">Create an account</h3>
+      <h4 className="pb-4">
+        Let's help you set up an account, it won't take long.
+      </h4>
       <label className="">First name</label>
-
       <input
-        className=""
-        value={auth.user.first_name}
+        className="register-input"
+        value={user.first_name}
         onChange={handleChange}
         name="first_name"
         type="text"
@@ -58,8 +110,8 @@ const handleRegister = async () => {
 
       <label className="">Last name</label>
       <input
-        className=""
-        value={auth.user.last_name}
+        className="register-input"
+        value={user.last_name}
         onChange={handleChange}
         name="last_name"
         type="text"
@@ -68,28 +120,32 @@ const handleRegister = async () => {
 
       <label className="">Email</label>
       <input
-        className=""
-        value={auth.user.email}
+        className="register-input"
+        value={user.email}
         onChange={handleChange}
         name="email"
         type="text"
-        placeholder="email"
+        placeholder="Email"
       />
 
       <label className="">Password</label>
+    {/*   <PasswordInput
+  value={user.password}
+  onChange={handlePasswordChange}
+      /> */} 
       <input
-        className=""
-        value={auth.user.password}
-        onChange={handleChange}
-        name="password"
-        type="password"
-        placeholder="Choose a strong password"
+      className="register-input"
+      value={user.password}
+      onChange={handleChange}
+      name="password"
+      type="password"
+      placeholder="Password"
       />
 
       <label className="">Preference</label>
       <input
-        className=""
-        value={auth.user.preference}
+        className="register-input"
+        value={user.preference}
         onChange={handleChange}
         name="preference"
         type="text"
@@ -97,28 +153,72 @@ const handleRegister = async () => {
       />
 
       <label className="">Cooking Skills</label>
-      <input
-        className=""
-        value={auth.user.cooking_skills}
-        onChange={handleChange}
-        name="cooking_skills"
-        type="text"
-        placeholder="How good are you at cooking?"
-      />
+      <div className="checkbox-container">
+        <label>
+          <input
+            type="checkbox"
+            name="cooking_skills"
+            value="novice"
+            checked={user.cooking_skills === "novice"}
+            onChange={handleSkillsChange}
+          />
+          Novice chef
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="cooking_skills"
+            value="hobby"
+            checked={user.cooking_skills === "hobby"}
+            onChange={handleSkillsChange}
+          />
+          Hobby chef
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="cooking_skills"
+            value="competent"
+            checked={user.cooking_skills === "competent"}
+            onChange={handleSkillsChange}
+          />
+          Competent chef
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="cooking_skills"
+            value="expert"
+            checked={user.cooking_skills === "expert"}
+            onChange={handleSkillsChange}
+          />
+          Expert chef
+        </label>
+      </div>
 
       <label className="">Description</label>
       <input
-        className=""
-        value={auth.user.description}
+        className="register-input"
+        value={user.description}
         onChange={handleChange}
         name="description"
         type="text"
-        placeholder="Tell us something about yourself"
+        placeholder="Describe yourself"
       />
-
-      <button className="btn btn-success" onClick={handleRegister}>
-        Sign up
+      <br></br>
+      <button
+        className="btn btn-success my-2 py-2 col-12 col-sm-4"
+        onClick={handleRegister}
+      >
+        Sign up<i className="fa-solid fa-arrow-right ms-3"></i>
       </button>
+      <p className="py-3">
+        Already a member?
+        <a className="link" href="/login">
+          {" "}
+          Sign in
+        </a>
+      </p>
       <br />
       {errorMessage && <p>{errorMessage}</p>}
     </div>
