@@ -62,7 +62,7 @@ useEffect(() => {
         <div className="col-6 text-center">
       <img className="avatar" src={chef} alt="avatar" />
       </div>
-      <div className="col-6 text-center mt-3">
+      <div className="col-6 text-center mt-4">
       <h3>{`${auth.user.first_name} ${auth.user.last_name}`}</h3>
       </div>
       </div>
@@ -79,7 +79,8 @@ useEffect(() => {
       <button className="btn btn-success my-2 px-4">Favorites</button>
       </div>
       <br />
-      <p className="text-bigger text-width">
+      <h3 className="my-2">Generate a recipe with NutriGPT</h3>
+      <p className="text-bigger">
       Discover delightgul and healthy recipes personalized just for you! Click the button below to ask NutriGPT, our AI nutrition assistant,
       to generate a recipe that perfectly matches your cooking and eating preferences!
       </p>
