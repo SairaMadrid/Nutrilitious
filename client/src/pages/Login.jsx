@@ -16,6 +16,7 @@ export default function Login() {
 
   const auth = useAuth();
 
+
   const handleEmailChange = (e) => {
     setCredentials({ ...credentials, email: e.target.value });
   };
@@ -27,13 +28,17 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    //if no credentials set an error later
-    try {
-      await auth.login(credentials);
-      setCredentials({ email: "", password: "" });
-      navigate("/profile");
-    } catch (error) {
-      throw error; //handle errors -> response.data.message?
+    if(!email || !password) {
+      setErrorMessage("Please fill out the fields")
+    } else {
+      try {
+        await auth.login(credentials);
+        setCredentials({ email: "", password: "" });
+        setErrorMessage("");
+        navigate("/profile");
+      } catch (error) {
+        setErrorMessage("Please make sure the email and/or the password are correct and try again"); 
+      }
     }
   };
 
@@ -85,11 +90,11 @@ export default function Login() {
         </form>
       </div>
       <p className="py-3">
-        Don't have an account?
-        <a className="link" href="/register">
-          Sign up
-        </a>
+        Don't have an account? 
+        <a className="link" href="/register"> Sign up</a>
       </p>
+      <br />
+      {errorMessage && <p className="error py-2">{errorMessage}</p>}
     </div>
   );
 }
