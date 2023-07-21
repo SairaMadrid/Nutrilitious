@@ -42,7 +42,6 @@ const openai = new OpenAIApi(configuration);
         const query = await db(`SELECT preference FROM profiles WHERE id = ${req.id};`);
         console.log(query);
         const preference = query.data[0].preference;
-        console.log('Results:', preference);
 
         const completion = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo-0613',

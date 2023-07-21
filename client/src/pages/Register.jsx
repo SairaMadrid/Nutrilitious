@@ -15,8 +15,7 @@ export default function Register() {
     description: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  //const [cookingSkills, setCookingSkills] = useState("");
-  const [password, setPassword] = useState(""); // Define the password state
+  const [togglePassword, setTogglePassword] = useState("password");
 
   const navigate = useNavigate();
 
@@ -92,6 +91,10 @@ export default function Register() {
     }
   };
 
+  const handleToggle = () => {
+    
+  }
+
   return (
     <div className="register-container text-left">
       <h3 className="register-header">Create an account</h3>
@@ -138,9 +141,10 @@ export default function Register() {
       value={user.password}
       onChange={handleChange}
       name="password"
-      type="password"
+      type={togglePassword}
       placeholder="Password"
       />
+      <button onClick={() => setTogglePassword("text")}>Test</button>
 
       <label className="">Preference</label>
       <input
