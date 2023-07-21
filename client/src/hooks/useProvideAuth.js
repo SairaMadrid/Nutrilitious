@@ -25,7 +25,7 @@ export default function useProvideAuth() {
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
     } catch (error) {
-      console.log(error.response.data.message);
+      console.log(error);
     }
   };
   
