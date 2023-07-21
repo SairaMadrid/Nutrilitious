@@ -19,6 +19,7 @@ CREATE TABLE `favourites`(
     `name` VARCHAR(255) NOT NULL,
     `image` VARCHAR(255) NOT NULL,
     `profiles_id` INT UNSIGNED NOT NULL ,
+    `api_id` INT NOT NULL,
     PRIMARY KEY(`id`),
     CONSTRAINT `favourites_profiles_id_foreign` FOREIGN KEY (`profiles_id`) REFERENCES `profiles`(`id`)
 );
