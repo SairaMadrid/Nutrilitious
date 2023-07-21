@@ -106,16 +106,4 @@ router.get("/images", async function (req, res, next) {
   }
 });
 
- router.post("/add-favourites", userShouldBeLoggedIn, async (req, res) => {
-  const {name, image, profiles_id} = req.body;
-  try {
-await db(`INSERT INTO favourites (name, image, profiles_id) VALUES ("${name}", "${image}", ${profiles_id})`);
-
-const result = await db(`SELECT profiles.first_name, favourites.name FROM profiles LEFT JOIN favourites ON profiles.id = favourites.profiles_id WHERE profiles.id  = ${req.id};`);
-res.send(result.data);
-  } catch (error) {
-    res.status(400).send({ message: error.message })
-  }
-}); 
-
 module.exports = router;

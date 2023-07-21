@@ -10,7 +10,7 @@ export default function Register() {
     last_name: "",
     email: "",
     password: "",
-    preference: "",
+    preferences: "",
     cooking_skills: "",
     description: "",
   });
@@ -19,7 +19,7 @@ export default function Register() {
 
   const navigate = useNavigate();
 
- /*  const handleSkillsChange = (e) => {
+  /*  const handleSkillsChange = (e) => {
     e.persist();
     if (e.target.name === "cooking_skills") {
       setCookingSkills(e.target.value);
@@ -29,21 +29,23 @@ export default function Register() {
   }; */
   const handleSkillsChange = (e) => {
     const { name, value, checked, type } = e.target; //here we are doing an object destructuring so that instead of typing e.target.value we can simply type 'value' and so on
-    if (type === "checkbox") { //I think the reason why this function wasnt updating the user state was because we are using a specific type of input, checkbox, so it's treated a little bit different from a regular input
+    if (type === "checkbox") {
+      //I think the reason why this function wasnt updating the user state was because we are using a specific type of input, checkbox, so it's treated a little bit different from a regular input
       //in this if statement we check if the type of the input is checkbox
       setUser((state) => ({
         ...state,
         [name]: checked ? value : "", //if it is a checkbox and if it was checked (clicked) then e.target.name equals to value. In our case, it's either "novice" or the others names we gave them. If it's not checked, we're clearing the value and setting it to an empty string
       }));
-    } else { //this will handle the case when the input's type is not a checkbox. Then it will set the input value with whatever the user typed in
+    } else {
+      //this will handle the case when the input's type is not a checkbox. Then it will set the input value with whatever the user typed in
       setUser((state) => ({
-        ...state, [name]: value,
+        ...state,
+        [name]: value,
       }));
     }
   };
-  
 
- /*  const handlePasswordChange = (e) => {
+  /*  const handlePasswordChange = (e) => {
     e.persist();
     setPassword(e.target.value); // Update the password state
   }; */
@@ -68,7 +70,7 @@ export default function Register() {
       !user.last_name ||
       !user.email ||
       !user.password ||
-      !user.preference ||
+      !user.preferences ||
       !user.description
     ) {
       setErrorMessage("Please fill out all fields");
@@ -80,13 +82,13 @@ export default function Register() {
           last_name: "",
           email: "",
           password: "",
-          preference: "",
+          preferences: "",
           description: "",
         });
         setErrorMessage("");
       } catch (error) {
         console.log(error.message);
-        setErrorMessage("There was an error, please try again")
+        setErrorMessage("There was an error, please try again");
       }
     }
   };
@@ -132,26 +134,36 @@ export default function Register() {
       />
 
       <label className="">Password</label>
-    {/*   <PasswordInput
+      {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
-      /> */} 
+      /> */}
       <input
-      className="register-input"
-      value={user.password}
-      onChange={handleChange}
-      name="password"
-      type={togglePassword}
-      placeholder="Password"
+        className="register-input"
+        value={user.password}
+        onChange={handleChange}
+        name="password"
+        type={togglePassword}
+        placeholder="Password"
       />
       <button onClick={() => setTogglePassword("text")}>Test</button>
 
-      <label className="">Preference</label>
+      <label className="">Preferences</label>
       <input
         className="register-input"
-        value={user.preference}
+        value={user.password}
         onChange={handleChange}
-        name="preference"
+        name="password"
+        type="password"
+        placeholder="Password"
+      />
+
+      <label className="">Preferences</label>
+      <input
+        className="register-input"
+        value={user.preferences}
+        onChange={handleChange}
+        name="preferences"
         type="text"
         placeholder="Any dietary requirements?"
       />
