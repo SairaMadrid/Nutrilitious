@@ -39,6 +39,7 @@ router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
     );
     console.log(query);
     const preferences = query.data[0].preferences;
+
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
       //prompt: preferences, //this breaks my code
