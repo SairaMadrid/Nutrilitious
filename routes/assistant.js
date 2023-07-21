@@ -35,15 +35,12 @@ const openai = new OpenAIApi(configuration);
     });
   }); */
 
-//Get an AI response based on the user preferences:
-router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
-  try {
-    const query = await db(
-      `SELECT preferences FROM profiles WHERE id = ${req.id};`
-    );
-    console.log(query);
-    const preferences = query.data[0].preferences;
-    console.log("Results:", preferences);
+  //Get an AI response based on the user preference:
+  router.post('/', userShouldBeLoggedIn, async (req, res, next) => {
+    try {
+        const query = await db(`SELECT preference FROM profiles WHERE id = ${req.id};`);
+        console.log(query);
+        const preference = query.data[0].preference;
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
