@@ -1,0 +1,64 @@
+/* register.css */
+
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.register-header {
+  font-size: 40px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.register-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Style the container div as a flex container */
+.register-input,
+.checkbox-container {
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style each checkbox label */
+.checkbox-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Style the checkbox input */
+.checkbox-container input[type="checkbox"] {
+  margin-left: 5px;
+}
+
+.register-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.register-button:hover {
+  background-color: #45a049;
+}
