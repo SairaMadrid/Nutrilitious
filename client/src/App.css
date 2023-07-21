@@ -53,8 +53,8 @@ body {
   font-size: 15px;
   color: rgb(107, 107, 107);
 }
-.avatar {
-  width: 100px;
+.avatar{
+  width: 120px;
   border-radius: 50%;
 }
 .text-bigger {

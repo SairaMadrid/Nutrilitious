@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     last_name,
     email,
     password,
-    preference,
+    preferences,
     cooking_skills,
     description,
   } = req.body;
@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
     const hash = await bcrypt.hash(password, saltRounds);
 
     await db(
-      `INSERT INTO profiles (first_name, last_name, email, password, preference, cooking_skills, description) VALUES ("${first_name}", "${last_name}", "${email}", "${hash}", "${preference}", "${cooking_skills}", "${description}");`
+      `INSERT INTO profiles (first_name, last_name, email, password, preferences, cooking_skills, description) VALUES ("${first_name}", "${last_name}", "${email}", "${hash}", "${preferences}", "${cooking_skills}", "${description}");`
     );
 
     res.send({ message: "Register successful" });
@@ -33,7 +33,6 @@ router.post("/register", async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -75,9 +74,4 @@ router.get("/profile", userShouldBeLoggedIn, async (req, res) => {
   }
 });
 
-
-
 module.exports = router;
-
-
-
