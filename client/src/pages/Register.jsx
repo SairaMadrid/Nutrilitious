@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import "./register.css";
-import PasswordInput from "../components/PasswordInput";
 
 export default function Register() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -98,10 +97,7 @@ export default function Register() {
       />
 
       <label className="">Password</label>
-      <PasswordInput
-        value={auth.user.password}
-        onChange={handlePasswordChange}
-      />
+      <input value={password} onChange={handlePasswordChange} type="password" />
 
       <label className="">Preference</label>
       <input
