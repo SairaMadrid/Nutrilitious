@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function RecipeCard({ recipe, setRecipe }) {
   const [ingredients, setIngredients] = useState([]);
@@ -7,11 +8,26 @@ export default function RecipeCard({ recipe, setRecipe }) {
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
   const [imageURL, setImageURL] = useState("");
+  const [isFav, setIsFav] = useState(false);
+  const [userID, setUserID] = useState("");
 
   const { title } = recipe;
 
-  //fetching description and ingredients below
+  //fetching necessary userID for favourites function as well as recipe description and ingredients below
   useEffect(() => {
+    const getUserID = async () => {
+      try {
+        const { data } = await axios("/api/auth/profile", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+        setUserID(data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     const getRecipeDescription = async () => {
       try {
         const response = await fetch(`/api/recipe/?id=${recipe.id}`, {
@@ -37,8 +53,9 @@ export default function RecipeCard({ recipe, setRecipe }) {
         console.error("Error fetching recipe description:", error);
       }
     };
-
+    getUserID();
     getRecipeDescription();
+    console.log(userID);
   }, [recipe]);
 
   const handleButtonClick = () => {
@@ -46,7 +63,21 @@ export default function RecipeCard({ recipe, setRecipe }) {
   };
 
   const handleHeartClick = () => {
-    console.log("we can add the favourites logic here");
+    setIsFav((prevIsFav) => !prevIsFav);
+
+    console.log(isFav);
+  };
+
+  useEffect(() => {
+    if (isFav) {
+      addToFavorites(recipe.id, title, imageURL, userID);
+    }
+  }, [isFav]);
+
+  const addToFavorites = async (recipeId, name, image, userID) => {
+    console.log("Recipe added to favourites with ID:", recipeId);
+    // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
+    // for that we first need to store in favourites table in backend and also send the userID
   };
 
   return (
@@ -93,11 +124,15 @@ export default function RecipeCard({ recipe, setRecipe }) {
             </span>
           </h6>
           <div className="heart-icon">
-            <i onClick={handleHeartClick} className="fas fa-heart"></i>
+            <i
+              onClick={handleHeartClick}
+              className="fas fa-heart"
+              style={{ color: isFav ? "red" : "inherit" }}
+            ></i>
           </div>
         </div>
       </div>
-      <button onClick={handleButtonClick}>Bring me back to the results</button>
+      <button onClick={handleButtonClick}>Back to the overview</button>
     </>
   );
 }

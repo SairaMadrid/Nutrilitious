@@ -80,7 +80,7 @@ router.patch("/profile", userShouldBeLoggedIn, async function (req, res, next) {
   const { preferences, cooking_skills, description } = req.body;
   try {
     //first checking if the profile/user exists
-    const results = await db(`SELECT * FROM profiles WHERE id = ${req.id}`);
+    const results = await db(`SELECT * FROM profiles WHERE id = ${id}`);
     const user = results.data[0];
     if (!user) {
       throw new Error("User does not exist");
