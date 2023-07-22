@@ -5,14 +5,11 @@ const axios = require("axios");
 const { Configuration, OpenAIApi } = require("openai");
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guard/userShouldBeLoggedIn");
-
 const openaikey = process.env.OPENAI_KEY;
-
 const configuration = new Configuration({
   apiKey: openaikey,
 });
 const openai = new OpenAIApi(configuration);
-
 //Get the AI response based on the user input:
 /* router.post('/', async (req, res, next) => {
     const { input } = req.body;
@@ -34,13 +31,14 @@ const openai = new OpenAIApi(configuration);
       output: result.data.choices[0].message.content,
     });
   }); */
-
-  //Get an AI response based on the user preference:
-  router.post('/', userShouldBeLoggedIn, async (req, res, next) => {
-    try {
-        const query = await db(`SELECT preference FROM profiles WHERE id = ${req.id};`);
-        console.log(query);
-        const preference = query.data[0].preference;
+//Get an AI response based on the user preference:
+router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
+  try {
+    const query = await db(
+      `SELECT preferences FROM profiles WHERE id = ${req.id};`
+    );
+    console.log(query);
+    const preferences = query.data[0].preferences;
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
@@ -59,7 +57,6 @@ const openai = new OpenAIApi(configuration);
         },
       ],
     });
-
     res.send({
       output: completion.data.choices[0].message.content,
     });
@@ -67,5 +64,4 @@ const openai = new OpenAIApi(configuration);
     res.status(500).send(error.message);
   }
 });
-
 module.exports = router;

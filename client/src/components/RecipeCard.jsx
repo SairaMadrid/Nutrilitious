@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function RecipeCard({ recipe, setRecipe }) {
   const [ingredients, setIngredients] = useState([]);
@@ -44,6 +45,10 @@ export default function RecipeCard({ recipe, setRecipe }) {
     setRecipe({});
   };
 
+  const handleHeartClick = () => {
+    console.log("we can add the favourites logic here");
+  };
+
   return (
     <>
       <h2>Here Is Your {title} Recipe</h2>
@@ -87,9 +92,12 @@ export default function RecipeCard({ recipe, setRecipe }) {
               {servingSize}
             </span>
           </h6>
+          <div className="heart-icon">
+            <i onClick={handleHeartClick} className="fas fa-heart"></i>
+          </div>
         </div>
       </div>
-      <button onClick={handleButtonClick}>Bring me back to my results</button>
+      <button onClick={handleButtonClick}>Bring me back to the results</button>
     </>
   );
 }
