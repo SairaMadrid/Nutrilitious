@@ -133,6 +133,7 @@ export default function Profile() {
           toggleForm={toggleForm}
           handleSubmit={handleSubmit}
           handleChange={handleChange}
+          cookingSkills={user.cooking_skills}
         />
       )}
       <div style={{ marginTop: "3%" }}>
