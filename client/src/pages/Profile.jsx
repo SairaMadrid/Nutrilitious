@@ -96,6 +96,12 @@ export default function Profile() {
     }
   };
 
+  // need a ftehc request here to access the favourites data from our DB and display images and titles/names here in clickable cards
+
+  // when clicked on a favourite card... it should display a smaller version of the the RecipeCard.jsx... need to pass on all necessary data / recipeID for that
+  // conditional rendering to only display either all favourites or just one recipe
+  // needs to be similar to Search component... need to have a similar to recipe, setRecipe useState... so that the button to go back works and will lead back to favourites in this case
+
   return (
     <div className="container">
       <h1 className="text-center py-2">My Profile</h1>
@@ -138,7 +144,8 @@ export default function Profile() {
       )}
       <div style={{ marginTop: "3%" }}>
         <h4>Your Favorite Recipes:</h4>
-        <div>...will be rendered here</div>
+        <div>...will be rendered here through a seperate component</div>{" "}
+        {/* by clicking on one of the favourites, it will open a smaller but full recipe card which can also lead you back to the favourites, just need a slightly adapted version of the other recipe card */}
       </div>
       <br />
       <h4 className="my-2">Generate a recipe with NutriGPT</h4>
