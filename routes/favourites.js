@@ -68,8 +68,11 @@ res.send(result.data);
 //POSTMAN TEST: TBC - to be tested when spoontacular is running
 
 router.delete("/", userShouldBeLoggedIn, async (req, res, next) => {
+  const { api_id } = req.body;
   try {
-    await db(`DELETE FROM favourites WHERE id = ${req.id}`);
+    await db(
+      `DELETE FROM favourites WHERE profiles_id = ${req.id} AND api_id = ${api_id};`
+    );
     const result = await db(
       `SELECT * FROM favourites WHERE profiles_id  = ${req.id};`
     );
