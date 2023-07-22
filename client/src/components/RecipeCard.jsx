@@ -62,15 +62,17 @@ export default function RecipeCard({ recipe, setRecipe }) {
     setRecipe({});
   };
 
-  const handleHeartClick = async (recipeId, name, image) => {
+  const handleHeartClick = () => {
     setIsFav((prevIsFav) => !prevIsFav);
 
     console.log(isFav);
-
-    if (isFav) {
-      await addToFavorites(recipeId, name, image, userID);
-    }
   };
+
+  useEffect(() => {
+    if (isFav) {
+      addToFavorites(recipe.id, title, imageURL, userID);
+    }
+  }, [isFav]);
 
   const addToFavorites = async (recipeId, name, image, userID) => {
     console.log("Recipe added to favourites with ID:", recipeId);
@@ -123,7 +125,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
           </h6>
           <div className="heart-icon">
             <i
-              onClick={() => handleHeartClick(recipe.id, title, imageURL)}
+              onClick={handleHeartClick}
               className="fas fa-heart"
               style={{ color: isFav ? "red" : "inherit" }}
             ></i>
