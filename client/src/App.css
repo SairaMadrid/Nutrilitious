@@ -66,19 +66,33 @@ body {
 }
 
 .text-container {
-  width: 65%; 
-  margin: 0 auto; 
+  width: 65%;
+  margin: 0 auto;
 }
-
 
 .password-button {
   color: red;
 }
 
+/* for recipe card: */
 .heart-icon {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
   color: rgb(116, 108, 108);
   font-size: 1.5em;
+}
+
+/* for search results */
+
+@media (min-width: 900px) {
+  .row-cols-md-3 {
+    /* for wide screens, show 6 cards in one row */
+    column-count: 4;
+  }
+
+  /* adapting the width of individual cards to fit the columns */
+  .col {
+    width: calc(100% / 4);
+  }
 }

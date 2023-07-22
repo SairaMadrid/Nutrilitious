@@ -56,7 +56,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
     getUserID();
     getRecipeDescription();
     console.log(userID);
-  }, [recipe]);
+  }, [recipe, userID]);
 
   const handleButtonClick = () => {
     setRecipe({});
@@ -64,8 +64,6 @@ export default function RecipeCard({ recipe, setRecipe }) {
 
   const handleHeartClick = () => {
     setIsFav((prevIsFav) => !prevIsFav);
-
-    console.log(isFav);
   };
 
   useEffect(() => {
