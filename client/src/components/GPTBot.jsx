@@ -51,17 +51,22 @@ export default function GPTBot() {
       </div>
       <div className="my-2">
         <div className={isTyping ? "typing" : "hide"}>
-          <p>
+          <p className="text-center">
             <i>{isTyping ? "Typing..." : ""}</i>
           </p>
         </div>
         <div className="container d-flex justify-content-center align-items-center">
-      <div className="py-2 my-1 card w-70">
+
+        {output && 
+    <div className="py-2 my-1 card w-60">
       <div class="card-body">
-      <h5 class="card-title fw-semibold">Your recipe</h5>
-        {output && <pre className="text card-text">{output}</pre>}
+    <h5 class="card-title fw-semibold">Your recipe</h5>
+       <pre className="text card-text">{output}</pre>
         </div>
         </div>
+        }
+      
+        < br />
       </div>
       </div>
     </div>
