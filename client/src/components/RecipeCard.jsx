@@ -69,16 +69,34 @@ export default function RecipeCard({ recipe, setRecipe }) {
   };
 
   useEffect(() => {
+    const addToFavorites = async (recipeId, name, image, userID) => {
+      console.log("Recipe added to favourites with ID:", recipeId);
+      // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
+      // for that we first need to store in favourites table in backend and also send the userID
+      const newFavourite = {
+        name: name,
+        image: image,
+        profiles_id: userID,
+        api_id: recipe.id,
+      };
+      try {
+        const response = await fetch(`/api/favourites`, {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newFavourite),
+        });
+      } catch (error) {
+        console.error("Error adding to favourites:", error);
+      }
+    };
+
     if (isFav) {
       addToFavorites(recipe.id, title, imageURL, userID);
     }
-  }, [isFav]);
-
-  const addToFavorites = async (recipeId, name, image, userID) => {
-    console.log("Recipe added to favourites with ID:", recipeId);
-    // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
-    // for that we first need to store in favourites table in backend and also send the userID
-  };
+  }, [isFav, recipe.id, title, imageURL, userID]);
 
   return (
     <>
