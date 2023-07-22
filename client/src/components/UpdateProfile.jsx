@@ -6,6 +6,7 @@ export default function UpdateProfile({
   toggleForm,
   handleChange,
   handleSubmit,
+  cookingSkills,
 }) {
   return (
     <div>
@@ -32,14 +33,48 @@ export default function UpdateProfile({
         />
 
         <label>Cooking Skills</label>
-        <input
-          className="register-input"
-          value={user.cooking_skills}
-          onChange={handleChange}
-          name="cooking_skills"
-          type="text"
-          placeholder="Your cooking skills"
-        />
+        <div className="checkbox-container">
+          <label>
+            <input
+              type="checkbox"
+              name="cooking_skills"
+              value="novice"
+              checked={cookingSkills === "novice"} // Set checked based on cookingSkills prop
+              onChange={handleChange}
+            />
+            Novice chef
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="cooking_skills"
+              value="hobby"
+              checked={cookingSkills === "hobby"} // Set checked based on cookingSkills prop
+              onChange={handleChange}
+            />
+            Hobby chef
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="cooking_skills"
+              value="competent"
+              checked={cookingSkills === "competent"} // Set checked based on cookingSkills prop
+              onChange={handleChange}
+            />
+            Competent chef
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="cooking_skills"
+              value="expert"
+              checked={cookingSkills === "expert"} // Set checked based on cookingSkills prop
+              onChange={handleChange}
+            />
+            Expert chef
+          </label>
+        </div>
 
         <button type="submit" onClick={handleSubmit}>
           Save
