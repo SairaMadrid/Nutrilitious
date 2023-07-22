@@ -151,16 +151,6 @@ export default function Register() {
       <label className="">Preferences</label>
       <input
         className="register-input"
-        value={user.password}
-        onChange={handleChange}
-        name="password"
-        type="password"
-        placeholder="Password"
-      />
-
-      <label className="">Preferences</label>
-      <input
-        className="register-input"
         value={user.preferences}
         onChange={handleChange}
         name="preferences"
