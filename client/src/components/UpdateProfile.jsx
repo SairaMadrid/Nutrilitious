@@ -39,7 +39,7 @@ export default function UpdateProfile({
               type="checkbox"
               name="cooking_skills"
               value="novice"
-              checked={cookingSkills === "novice"} // Set checked based on cookingSkills prop
+              checked={cookingSkills === "novice"}
               onChange={handleChange}
             />
             Novice chef
@@ -49,7 +49,7 @@ export default function UpdateProfile({
               type="checkbox"
               name="cooking_skills"
               value="hobby"
-              checked={cookingSkills === "hobby"} // Set checked based on cookingSkills prop
+              checked={cookingSkills === "hobby"}
               onChange={handleChange}
             />
             Hobby chef
@@ -59,7 +59,7 @@ export default function UpdateProfile({
               type="checkbox"
               name="cooking_skills"
               value="competent"
-              checked={cookingSkills === "competent"} // Set checked based on cookingSkills prop
+              checked={cookingSkills === "competent"}
               onChange={handleChange}
             />
             Competent chef
@@ -69,7 +69,7 @@ export default function UpdateProfile({
               type="checkbox"
               name="cooking_skills"
               value="expert"
-              checked={cookingSkills === "expert"} // Set checked based on cookingSkills prop
+              checked={cookingSkills === "expert"}
               onChange={handleChange}
             />
             Expert chef
