@@ -5,14 +5,11 @@ const axios = require("axios");
 const { Configuration, OpenAIApi } = require("openai");
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guard/userShouldBeLoggedIn");
-
 const openaikey = process.env.OPENAI_KEY;
-
 const configuration = new Configuration({
   apiKey: openaikey,
 });
 const openai = new OpenAIApi(configuration);
-
 //Get the AI response based on the user input:
 /* router.post('/', async (req, res, next) => {
     const { input } = req.body;
@@ -59,7 +56,6 @@ const openai = new OpenAIApi(configuration);
         },
       ],
     });
-
     res.send({
       output: completion.data.choices[0].message.content,
     });
@@ -67,5 +63,4 @@ const openai = new OpenAIApi(configuration);
     res.status(500).send(error.message);
   }
 });
-
 module.exports = router;
