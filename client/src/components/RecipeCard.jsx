@@ -152,7 +152,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
           </div>
         </div>
       </div>
-      <button onClick={handleButtonClick}>Back to the overview</button>
+      <button onClick={handleButtonClick}>Back to results</button>
     </>
   );
 }

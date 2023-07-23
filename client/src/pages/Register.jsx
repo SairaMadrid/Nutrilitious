@@ -93,9 +93,7 @@ export default function Register() {
     }
   };
 
-  const handleToggle = () => {
-    
-  }
+  const handleToggle = () => {};
 
   return (
     <div className="register-container text-left">
@@ -146,8 +144,10 @@ export default function Register() {
         type={togglePassword}
         placeholder="Password"
       />
-      <button onClick={() => setTogglePassword("text")}>Test</button>
-
+      <button onClick={() => setTogglePassword("text")}>
+        <i className="fa-solid fa-eye"></i>
+      </button>
+      <br></br>
       <label className="">Preferences</label>
       <input
         className="register-input"
