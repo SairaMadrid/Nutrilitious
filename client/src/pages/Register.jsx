@@ -93,9 +93,11 @@ export default function Register() {
     }
   };
 
+
   const handleTogglePassword = () => {
     setShowPassword((prevState) => !prevState);
   };
+
 
   return (
     <div className="register-container text-left">
@@ -138,6 +140,7 @@ export default function Register() {
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
+
         <input
           className="register-input"
           value={user.password}
@@ -158,6 +161,7 @@ export default function Register() {
           )}
         </button>
       </div>
+
       <label className="">Preferences</label>
       <input
         className="register-input"
