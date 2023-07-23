@@ -14,7 +14,18 @@ export default function RecipeCard({
   const [isFav, setIsFav] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
 
-  const { name } = recipe;
+  const name = recipe.name || recipe.title;
+
+  useEffect(() => {
+    if (recipeFavourites && recipeFavourites.length > 0) {
+      for (let x of recipeFavourites) {
+        if (x.api_id === recipe.api_id) {
+          setIsFav(true);
+          break;
+        }
+      }
+    }
+  }, [recipeFavourites, recipe.api_id]);
 
   //fetching recipe description and ingredients below
   useEffect(() => {
@@ -44,14 +55,7 @@ export default function RecipeCard({
         console.error("Error fetching recipe description:", error);
       }
     };
-    // check if the heart of the favourites should be set to active/red or not
-    if (recipeFavourites && !isHeartClicked) {
-      for (let x of recipeFavourites) {
-        if (x.api_id === recipe.api_id) {
-          setIsFav(true);
-        }
-      }
-    }
+    // check if the heart of the favourites should be set to active/red or not!!!!!!!!!!!!!!!!!!!
 
     getRecipeDescription();
   }, [recipe]);
@@ -117,7 +121,7 @@ export default function RecipeCard({
     } else if (!isFav && isHeartClicked) {
       deleteFromFavourites();
     }
-  }, [isFav, recipe.id, name, imageURL]);
+  }, [isFav, recipe.id, name, imageURL, isHeartClicked]);
 
   return (
     <>
