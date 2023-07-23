@@ -99,7 +99,7 @@ export default function Profile() {
     };
 
     getFavourites();
-  }, []);
+  }, [favouriteCardOpen, favClicked]);
 
   const handleFavouriteClick = (index) => {
     setFavClicked(recipeFavourites[index]);

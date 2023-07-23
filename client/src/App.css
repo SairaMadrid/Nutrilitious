@@ -106,6 +106,43 @@ body {
   }
 }
 
+/* for the custom password visibility input box */
+
+span#basic-addon2.input-group-text {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.eyebutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+  line-height: 1;
+}
+
+.eyebutton:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.register-input {
+  margin-bottom: 0;
+}
+
+.input-group {
+  margin-bottom: 0;
+  align-items: center;
+}
+
+input.passInput {
+  margin-bottom: 0;
+}
+
 /* splash screen/homepage */
 
 .homepage-header {
