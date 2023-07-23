@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
 export default function RecipeCard({ recipe, setRecipe }) {
   const [ingredients, setIngredients] = useState([]);
@@ -9,25 +7,12 @@ export default function RecipeCard({ recipe, setRecipe }) {
   const [servingSize, setServingSize] = useState(0);
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
-  const [userID, setUserID] = useState("");
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
 
   const { title } = recipe;
 
-  //fetching necessary userID for favourites function as well as recipe description and ingredients below
+  //fetching recipe description and ingredients below
   useEffect(() => {
-    const getUserID = async () => {
-      try {
-        const { data } = await axios("/api/auth/profile", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
-        setUserID(data.id);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const getRecipeDescription = async () => {
       try {
         const response = await fetch(`/api/recipe/?id=${recipe.id}`, {
@@ -53,10 +38,9 @@ export default function RecipeCard({ recipe, setRecipe }) {
         console.error("Error fetching recipe description:", error);
       }
     };
-    getUserID();
+
     getRecipeDescription();
-    console.log(userID);
-  }, [recipe, userID]);
+  }, [recipe]);
 
   const handleButtonClick = () => {
     setRecipe({});
@@ -64,21 +48,20 @@ export default function RecipeCard({ recipe, setRecipe }) {
 
   const handleHeartClick = () => {
     setIsFav((prevIsFav) => !prevIsFav);
+    setIsHeartClicked(true);
   };
 
   useEffect(() => {
-    const addToFavorites = async (recipeId, name, image, userID) => {
-      console.log("Recipe added to favourites with ID:", recipeId);
+    const addToFavorites = async () => {
       // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
-      // for that we first need to store in favourites table in backend and also send the userID
+      // for that we first need to store in favourites table in backend
       const newFavourite = {
-        name: name,
-        image: image,
-        profiles_id: userID,
+        name: title,
+        image: imageURL,
         api_id: recipe.id,
       };
       try {
-        const response = await fetch(`/api/favourites`, {
+        await fetch(`/api/favourites`, {
           method: "POST",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -91,10 +74,31 @@ export default function RecipeCard({ recipe, setRecipe }) {
       }
     };
 
+    const deleteFromFavourites = async () => {
+      // if the heart is clicked to delete from favourites
+      const deleteFavourite = {
+        api_id: recipe.id,
+      };
+      try {
+        await fetch(`/api/favourites`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(deleteFavourite),
+        });
+      } catch (error) {
+        console.error("Error deleting favourite:", error);
+      }
+    };
+
     if (isFav) {
-      addToFavorites(recipe.id, title, imageURL, userID);
+      addToFavorites();
+    } else if (!isFav && isHeartClicked) {
+      deleteFromFavourites();
     }
-  }, [isFav, recipe.id, title, imageURL, userID]);
+  }, [isFav, recipe.id, title, imageURL]);
 
   return (
     <>
