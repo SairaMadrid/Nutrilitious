@@ -24,7 +24,7 @@ export default function Homepage() {
             <i className="fa-solid fa-seedling"></i>
           </h5>
         </div>
-        <Search className="searchbar" />
+        <Search />
       </div>
       <div style={containerStyle}></div>
 
