@@ -162,6 +162,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+
       <label className="">Preferences</label>
       <input
         className="register-input"
