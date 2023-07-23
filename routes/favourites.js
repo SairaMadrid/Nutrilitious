@@ -12,19 +12,23 @@ const db = require("../model/helper");
 
 // POST (ADD TO FAVOURITES)
 // POST MAN URL: localhost4000/api/favourites
-//POSTMAN TEST: NOT WORKING (Preferences issue on user.js)
+//POSTMAN TEST: TBC - to test when spoonacular is running
+
+//where to get token: http://localhost:4000/api/auth/login
+// use post body and then type in the email and password and then auth tab postman and then bearer token for th token
+// front end token - inspect, application and local storage
 router.post("/", userShouldBeLoggedIn, async (req, res) => {
-  const { name, image } = req.body;
+  const { name, image, api_id } = req.body;
 
   try {
     await db(
-      `INSERT INTO favourites (name, image, profiles_id) VALUES ("${name}", "${image}", ${req.id})`
+      `INSERT INTO favourites (name, image, profiles_id, api_id) VALUES ('${name}', '${image}', ${req.id}, ${api_id} )`
     );
 
-    // doesn't need join but not sure what is required instead?
+    // doesn't need join - only need to work with favourites DB
 
     const result = await db(
-      `SELECT favourites ON profiles.id = favourites.profiles_id WHERE profiles.id  = ${req.id};`
+      `SELECT * FROM favourites WHERE profiles_id  = ${req.id};`
     );
     res.send(result.data);
   } catch (error) {
@@ -59,13 +63,19 @@ res.send(result.data);
 */
 
 //DELETE
-// POST MAN URL: localhost4000/api/favourites/1
-//POSTMAN TEST: TBC
+// POST MAN URL: localhost4000/api/favourites
+// user is logged in so it knows the id - so don't need to mention in url
+//POSTMAN TEST: TBC - to be tested when spoontacular is running
 
-router.delete("/:id", userShouldBeLoggedIn, async (req, res, next) => {
+router.delete("/", userShouldBeLoggedIn, async (req, res, next) => {
+  const { api_id } = req.body;
   try {
-    await db(`DELETE FROM favourites WHERE id = ${req.params.id}`);
-    const result = await db("SELECT * FROM favourites ORDER BY id ASC");
+    await db(
+      `DELETE FROM favourites WHERE profiles_id = ${req.id} AND api_id = ${api_id};`
+    );
+    const result = await db(
+      `SELECT * FROM favourites WHERE profiles_id  = ${req.id};`
+    );
     res.send(result.data);
   } catch (err) {
     res.status(500).send(err);
@@ -74,10 +84,12 @@ router.delete("/:id", userShouldBeLoggedIn, async (req, res, next) => {
 
 // GET ALL FAVOURITES
 // POST MAN URL: localhost4000/api/favourites
-//POSTMAN TEST: WORKING
-router.get("/", async (req, res, next) => {
+//POSTMAN TEST: TBC - to be tested when spoontacular is running
+router.get("/", userShouldBeLoggedIn, async (req, res, next) => {
   try {
-    const result = await db(`SELECT * FROM favourites;`);
+    const result = await db(
+      `SELECT * FROM favourites WHERE profiles_id  = ${req.id};`
+    );
     res.send(result.data);
   } catch (err) {
     res.status(500).send(err);

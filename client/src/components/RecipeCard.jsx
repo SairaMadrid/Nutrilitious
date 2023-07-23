@@ -6,10 +6,12 @@ export default function RecipeCard({ recipe, setRecipe }) {
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
   const [imageURL, setImageURL] = useState("");
+  const [isFav, setIsFav] = useState(false);
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
 
   const { title } = recipe;
 
-  //fetching description and ingredients below
+  //fetching recipe description and ingredients below
   useEffect(() => {
     const getRecipeDescription = async () => {
       try {
@@ -43,6 +45,60 @@ export default function RecipeCard({ recipe, setRecipe }) {
   const handleButtonClick = () => {
     setRecipe({});
   };
+
+  const handleHeartClick = () => {
+    setIsFav((prevIsFav) => !prevIsFav);
+    setIsHeartClicked(true);
+  };
+
+  useEffect(() => {
+    const addToFavorites = async () => {
+      // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
+      // for that we first need to store in favourites table in backend
+      const newFavourite = {
+        name: title,
+        image: imageURL,
+        api_id: recipe.id,
+      };
+      try {
+        await fetch(`/api/favourites`, {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newFavourite),
+        });
+      } catch (error) {
+        console.error("Error adding to favourites:", error);
+      }
+    };
+
+    const deleteFromFavourites = async () => {
+      // if the heart is clicked to delete from favourites
+      const deleteFavourite = {
+        api_id: recipe.id,
+      };
+      try {
+        await fetch(`/api/favourites`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(deleteFavourite),
+        });
+      } catch (error) {
+        console.error("Error deleting favourite:", error);
+      }
+    };
+
+    if (isFav) {
+      addToFavorites();
+    } else if (!isFav && isHeartClicked) {
+      deleteFromFavourites();
+    }
+  }, [isFav, recipe.id, title, imageURL]);
 
   return (
     <>
@@ -87,9 +143,16 @@ export default function RecipeCard({ recipe, setRecipe }) {
               {servingSize}
             </span>
           </h6>
+          <div className="heart-icon">
+            <i
+              onClick={handleHeartClick}
+              className="fas fa-heart"
+              style={{ color: isFav ? "red" : "inherit" }}
+            ></i>
+          </div>
         </div>
       </div>
-      <button onClick={handleButtonClick}>Bring me back to my results</button>
+      <button onClick={handleButtonClick}>Back to the overview</button>
     </>
   );
 }

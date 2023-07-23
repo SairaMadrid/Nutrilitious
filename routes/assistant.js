@@ -5,14 +5,11 @@ const axios = require("axios");
 const { Configuration, OpenAIApi } = require("openai");
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guard/userShouldBeLoggedIn");
-
 const openaikey = process.env.OPENAI_KEY;
-
 const configuration = new Configuration({
   apiKey: openaikey,
 });
 const openai = new OpenAIApi(configuration);
-
 //Get the AI response based on the user input:
 /* router.post('/', async (req, res, next) => {
     const { input } = req.body;
@@ -35,20 +32,17 @@ const openai = new OpenAIApi(configuration);
     });
   }); */
 
-//Get an AI response based on the user preferences:
-router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
-  try {
-    const query = await db(
-      `SELECT preferences FROM profiles WHERE id = ${req.id};`
-    );
-    console.log(query);
-    const preferences = query.data[0].preferences;
-    console.log("Results:", preferences);
+  //Get an AI response based on the user preference:
+  router.post('/', userShouldBeLoggedIn, async (req, res, next) => {
+    try {
+        const query = await db(`SELECT preferences FROM profiles WHERE id = ${req.id};`);
+        console.log(query);
+        const preferences = query.data[0].preferences;
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
-      //prompt: preferences, //this breaks my code
-      max_tokens: 400, //can increase later
+      //prompt: preferences, 
+      max_tokens: 400, 
       temperature: 0.6,
       messages: [
         {
@@ -62,7 +56,6 @@ router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
         },
       ],
     });
-
     res.send({
       output: completion.data.choices[0].message.content,
     });
@@ -70,5 +63,4 @@ router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
     res.status(500).send(error.message);
   }
 });
-
 module.exports = router;
