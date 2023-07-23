@@ -15,7 +15,7 @@ export default function Register() {
     description: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const [togglePassword, setTogglePassword] = useState("password");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -93,7 +93,11 @@ export default function Register() {
     }
   };
 
-  const handleToggle = () => {};
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
 
   return (
     <div className="register-container text-left">
@@ -130,24 +134,34 @@ export default function Register() {
         type="text"
         placeholder="Email"
       />
-
-      <label className="">Password</label>
-      {/*   <PasswordInput
+      <div>
+        <label className="">Password</label>
+        {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-      <input
-        className="register-input"
-        value={user.password}
-        onChange={handleChange}
-        name="password"
-        type={togglePassword}
-        placeholder="Password"
-      />
-      <button onClick={() => setTogglePassword("text")}>
-        <i className="fa-solid fa-eye"></i>
-      </button>
-      <br></br>
+
+        <input
+          className="register-input"
+          value={user.password}
+          onChange={handleChange}
+          name="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+        />
+        <button
+          type="button"
+          className="btn btn-light btn-sm mt-2"
+          onClick={handleTogglePassword}
+        >
+          {showPassword ? (
+            <i className="bi bi-eye-slash-fill"></i>
+          ) : (
+            <i className="bi bi-eye-fill"></i>
+          )}
+        </button>
+      </div>
+
       <label className="">Preferences</label>
       <input
         className="register-input"
