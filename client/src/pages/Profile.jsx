@@ -35,7 +35,6 @@ export default function Profile() {
     getProfile();
   }, []);
 
-
   const toggleForm = () => {
     setIsUpdating((prevState) => !prevState); // toggling the state of the form to update user profile here
   };
@@ -71,7 +70,7 @@ export default function Profile() {
     }
   };
 
-  // need a ftehc request here to access the favourites data from our DB and display images and titles/names here in clickable cards
+  // need a fetch request here to access the favourites data from our DB and display images and titles/names here in clickable cards
 
   // when clicked on a favourite card... it should display a smaller version of the the RecipeCard.jsx... need to pass on all necessary data / recipeID for that
   // conditional rendering to only display either all favourites or just one recipe
@@ -123,7 +122,7 @@ export default function Profile() {
         {/* by clicking on one of the favourites, it will open a smaller but full recipe card which can also lead you back to the favourites, just need a slightly adapted version of the other recipe card */}
       </div>
       <br />
-        <GPTBot/>
+      <GPTBot />
     </div>
   );
 }
