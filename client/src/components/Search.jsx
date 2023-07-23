@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import Results from "./Results";
 import RecipeCard from "./RecipeCard";
@@ -6,6 +6,7 @@ import RecipeCard from "./RecipeCard";
 export default function Search({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [fullRecipe, setFullRecipe] = useState({});
+  const [recipeFavourites, setRecipeFavourites] = useState([]);
 
   const handleSearch = async (searchItem) => {
     const ingredients = searchItem;
@@ -44,6 +45,30 @@ export default function Search({ children }) {
     setFullRecipe(searchResults[index]);
   };
 
+  // need to access the favourites here so that the RecipeCard displays the correct heart status
+  useEffect(() => {
+    const getFavourites = async () => {
+      try {
+        const response = await fetch(`/api/favourites`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+
+        const data = await response.json();
+
+        setRecipeFavourites(data);
+        console.log(data); //continue here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      } catch (error) {
+        console.error("Error fetching recipe description:", error);
+      }
+    };
+
+    getFavourites();
+  }, []);
+
   return (
     <>
       {" "}
@@ -55,7 +80,11 @@ export default function Search({ children }) {
         />
       )}
       {fullRecipe.id && (
-        <RecipeCard recipe={fullRecipe} setRecipe={setFullRecipe} />
+        <RecipeCard
+          recipeFavourites={recipeFavourites}
+          recipe={fullRecipe}
+          setRecipe={setFullRecipe}
+        />
       )}
     </>
   );

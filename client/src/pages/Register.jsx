@@ -133,30 +133,34 @@ export default function Register() {
         placeholder="Email"
       />
       <div>
-        <label className="">Password</label>
         {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-        <input
-          className="register-input"
-          value={user.password}
-          onChange={handleChange}
-          name="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-        />
-        <button
-          type="button"
-          className="btn btn-light btn-sm mt-2"
-          onClick={handleTogglePassword}
-        >
-          {showPassword ? (
-            <i className="bi bi-eye-slash-fill"></i>
-          ) : (
-            <i className="bi bi-eye-fill"></i>
-          )}
-        </button>
+        <label className="">Password</label>
+        <div className="input-group mb-3">
+          <input
+            className="register-input form-control passInput"
+            value={user.password}
+            onChange={handleChange}
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+          />
+          <div className="input-group-append">
+            <button
+              type="button"
+              className="btn btn-outline-secondary eyebutton"
+              onClick={handleTogglePassword}
+            >
+              {showPassword ? (
+                <i className="bi bi-eye-fill"></i>
+              ) : (
+                <i className="bi bi-eye-slash-fill"></i>
+              )}
+            </button>
+          </div>
+        </div>
       </div>
       <label className="">Preferences</label>
       <input

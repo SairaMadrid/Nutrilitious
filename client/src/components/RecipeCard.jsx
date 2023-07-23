@@ -10,7 +10,6 @@ export default function RecipeCard({
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
-  const [isAlreadyFavourite, setIsAlreadyFavourite] = useState([]); // array holding all current favourites
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
@@ -45,12 +44,17 @@ export default function RecipeCard({
         console.error("Error fetching recipe description:", error);
       }
     };
+    // check if the heart of the favourites should be set to active/red or not
+    if (recipeFavourites && !isHeartClicked) {
+      for (let x of recipeFavourites) {
+        if (x.api_id === recipe.api_id) {
+          setIsFav(true);
+        }
+      }
+    }
 
     getRecipeDescription();
   }, [recipe]);
-
-  // check if the heart of the favourites should be set to active/red or not
-  // recipeFavourites need to be mapped and compared if the api_id equals recipe.id
 
   const handleButtonClick = () => {
     if (setRecipe) {
@@ -92,7 +96,7 @@ export default function RecipeCard({
     const deleteFromFavourites = async () => {
       // if the heart is clicked to delete from favourites
       const deleteFavourite = {
-        api_id: recipe.id,
+        api_id: recipe.api_id || recipe.id,
       };
       try {
         await fetch(`/api/favourites`, {
