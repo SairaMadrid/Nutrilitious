@@ -60,7 +60,6 @@ export default function Search({ children }) {
         const data = await response.json();
 
         setRecipeFavourites(data);
-        console.log(data); //continue here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       } catch (error) {
         console.error("Error fetching recipe description:", error);
       }
