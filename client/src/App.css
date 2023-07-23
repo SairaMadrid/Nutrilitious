@@ -85,7 +85,7 @@ body {
 
 /* for search results */
 
-@media (min-width: 900px) {
+@media (min-width: 2000px) {
   .row-cols-md-3 {
     /* for wide screens, show 6 cards in one row */
     column-count: 4;
