@@ -19,6 +19,7 @@ export default function Profile() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [recipeFavourites, setRecipeFavourites] = useState([]);
   const [favouriteCardOpen, setFavouriteCardOpen] = useState(false);
+  const [favClicked, setFavClicked] = useState({}); // this object holds the favourite card that has been clicked
 
   useEffect(() => {
     const getProfile = async () => {
@@ -73,7 +74,7 @@ export default function Profile() {
     }
   };
 
-  // need a ftehc request here to access the favourites data from our DB and display images and titles/names here in clickable cards
+  // need a fetch request here to access the favourites data from our DB and display images and titles/names here in clickable cards
 
   // when clicked on a favourite card... it should display a smaller version of the the RecipeCard.jsx... need to pass on all necessary data / recipeID for that
   // conditional rendering to only display either all favourites or just one recipe
@@ -92,7 +93,6 @@ export default function Profile() {
         const data = await response.json();
 
         setRecipeFavourites(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching recipe description:", error);
       }
@@ -101,7 +101,8 @@ export default function Profile() {
     getFavourites();
   }, []);
 
-  const handleFavouriteClick = () => {
+  const handleFavouriteClick = (index) => {
+    setFavClicked(recipeFavourites[index]);
     setFavouriteCardOpen(true);
   };
 
@@ -175,8 +176,9 @@ export default function Profile() {
         )}
         {favouriteCardOpen && (
           <RecipeCard
-            favouriteRecipe={recipeFavourites}
+            recipe={favClicked}
             setFavouriteCard={setFavouriteCardOpen}
+            recipeFavourites={recipeFavourites}
           />
         )}
       </div>

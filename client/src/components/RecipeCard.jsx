@@ -3,24 +3,26 @@ import { React, useState, useEffect } from "react";
 export default function RecipeCard({
   recipe,
   setRecipe,
-  favouriteRecipe,
   setFavouriteCard,
+  recipeFavourites,
 }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
+  const [isAlreadyFavourite, setIsAlreadyFavourite] = useState([]); // array holding all current favourites
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
 
-  const { title } = recipe;
+  const { name } = recipe;
 
   //fetching recipe description and ingredients below
   useEffect(() => {
+    const foodID = recipe.api_id || recipe.id;
     const getRecipeDescription = async () => {
       try {
-        const response = await fetch(`/api/recipe/?id=${recipe.id}`, {
+        const response = await fetch(`/api/recipe/?id=${foodID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -45,11 +47,18 @@ export default function RecipeCard({
     };
 
     getRecipeDescription();
-  }, [recipe, favouriteRecipe]);
+  }, [recipe]);
+
+  // check if the heart of the favourites should be set to active/red or not
+  // recipeFavourites need to be mapped and compared if the api_id equals recipe.id
 
   const handleButtonClick = () => {
-    setRecipe({});
-    setFavouriteCard(false);
+    if (setRecipe) {
+      setRecipe({});
+    }
+    if (setFavouriteCard) {
+      setFavouriteCard(false);
+    }
   };
 
   const handleHeartClick = () => {
@@ -59,12 +68,12 @@ export default function RecipeCard({
 
   useEffect(() => {
     const addToFavorites = async () => {
-      // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
+      // we need to add logic to add the recipe to favourites with the given recipeId, name/name, and image
       // for that we first need to store in favourites table in backend
       const newFavourite = {
-        name: title,
+        name: name,
         image: imageURL,
-        api_id: recipe.id,
+        api_id: recipe.api_id || recipe.id,
       };
       try {
         await fetch(`/api/favourites`, {
@@ -99,27 +108,27 @@ export default function RecipeCard({
       }
     };
 
-    if (isFav) {
+    if (isFav && isHeartClicked) {
       addToFavorites();
     } else if (!isFav && isHeartClicked) {
       deleteFromFavourites();
     }
-  }, [isFav, recipe.id, title, imageURL]);
+  }, [isFav, recipe.id, name, imageURL]);
 
   return (
     <>
-      <h2>Here Is Your {title} Recipe</h2>
+      <h2>Here Is Your {name} Recipe</h2>
       <div className="card" style={{ width: "35em", height: "auto" }}>
         <div style={{ textAlign: "center", marginTop: "3%" }}>
           <img
             className="card-img-top"
             src={imageURL}
             style={{ width: "30em", height: "auto" }}
-            alt={`Image of ${title}`}
+            alt={`Image of ${name}`}
           />
         </div>
         <div className="card-body">
-          <h4 className="card-title">{title}</h4>
+          <h4 className="card-title">{name}</h4>
           <h5>Ingredients:</h5>
           <ul>
             {ingredients.map((ingredient, index) => (
@@ -149,6 +158,7 @@ export default function RecipeCard({
               {servingSize}
             </span>
           </h6>
+
           <div className="heart-icon">
             <i
               onClick={handleHeartClick}
