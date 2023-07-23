@@ -3,6 +3,7 @@ import axios from "axios";
 import chef from "../assets/chef.jpg";
 import UpdateProfile from "../components/UpdateProfile";
 import GPTBot from "../components/GPTBot";
+import RecipeCard from "../components/RecipeCard";
 
 export default function Profile() {
   const [user, setUser] = useState({
@@ -16,6 +17,8 @@ export default function Profile() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [recipeFavourites, setRecipeFavourites] = useState([]);
+  const [favouriteCardOpen, setFavouriteCardOpen] = useState(false);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -34,7 +37,6 @@ export default function Profile() {
     };
     getProfile();
   }, []);
-
 
   const toggleForm = () => {
     setIsUpdating((prevState) => !prevState); // toggling the state of the form to update user profile here
@@ -76,6 +78,32 @@ export default function Profile() {
   // when clicked on a favourite card... it should display a smaller version of the the RecipeCard.jsx... need to pass on all necessary data / recipeID for that
   // conditional rendering to only display either all favourites or just one recipe
   // needs to be similar to Search component... need to have a similar to recipe, setRecipe useState... so that the button to go back works and will lead back to favourites in this case
+  useEffect(() => {
+    const getFavourites = async () => {
+      try {
+        const response = await fetch(`/api/favourites`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+
+        const data = await response.json();
+
+        setRecipeFavourites(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching recipe description:", error);
+      }
+    };
+
+    getFavourites();
+  }, []);
+
+  const handleFavouriteClick = () => {
+    setFavouriteCardOpen(true);
+  };
 
   return (
     <div className="container">
@@ -119,11 +147,41 @@ export default function Profile() {
       )}
       <div style={{ marginTop: "3%" }}>
         <h4>Your Favorite Recipes:</h4>
-        <div>...will be rendered here through a seperate component</div>{" "}
-        {/* by clicking on one of the favourites, it will open a smaller but full recipe card which can also lead you back to the favourites, just need a slightly adapted version of the other recipe card */}
+        {!favouriteCardOpen && (
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+            {recipeFavourites.map((result, index) => (
+              <div key={result.id} className="col">
+                <div className="card">
+                  {result.image && (
+                    <img
+                      className="card-img-top"
+                      src={result.image}
+                      alt={`Image of ${result.name}`}
+                      style={{
+                        height: "100px",
+                        objectFit: "cover",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleFavouriteClick(index)}
+                    />
+                  )}
+                  <div className="card-body">
+                    <h5 className="card-title">{result.name}</h5>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {favouriteCardOpen && (
+          <RecipeCard
+            favouriteRecipe={recipeFavourites}
+            setFavouriteCard={setFavouriteCardOpen}
+          />
+        )}
       </div>
       <br />
-        <GPTBot/>
+      <GPTBot />
     </div>
   );
 }

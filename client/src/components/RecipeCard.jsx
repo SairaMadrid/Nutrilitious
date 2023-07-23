@@ -1,6 +1,11 @@
 import { React, useState, useEffect } from "react";
 
-export default function RecipeCard({ recipe, setRecipe }) {
+export default function RecipeCard({
+  recipe,
+  setRecipe,
+  favouriteRecipe,
+  setFavouriteCard,
+}) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
@@ -40,10 +45,11 @@ export default function RecipeCard({ recipe, setRecipe }) {
     };
 
     getRecipeDescription();
-  }, [recipe]);
+  }, [recipe, favouriteRecipe]);
 
   const handleButtonClick = () => {
     setRecipe({});
+    setFavouriteCard(false);
   };
 
   const handleHeartClick = () => {
