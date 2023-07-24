@@ -18,16 +18,19 @@ export default function RecipeCard({
 
   useEffect(() => {
     console.log(recipeFavourites);
-    if (recipeFavourites && recipeFavourites.length > 0) {
-      for (let x of recipeFavourites) {
-        if (x.api_id === recipe.api_id) {
-          setIsFav(true);
-          break;
+    const checkForFavourites = () => {
+      if (recipeFavourites && recipeFavourites.length > 0) {
+        for (let x of recipeFavourites) {
+          if (x.api_id === recipe.api_id) {
+            setIsFav(true);
+            break;
+          }
         }
       }
-    }
-    console.log(isFav);
-  }, [recipeFavourites, recipe.api_id, isFav]);
+      console.log(isFav);
+    };
+    checkForFavourites();
+  }, [recipeFavourites, recipe.api_id]);
 
   //fetching recipe description and ingredients below
   useEffect(() => {
