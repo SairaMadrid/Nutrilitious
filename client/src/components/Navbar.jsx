@@ -56,7 +56,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light">
       <div className="container">
         {/* Logo */}
         <Link className="navbar-brand" to="/">
