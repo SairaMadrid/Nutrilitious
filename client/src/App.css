@@ -81,11 +81,6 @@ body {
   color: red;
 }
 
-.search-input {
-  border-radius: 5px;
-  border-color: rgb(21, 19, 19);
-}
-
 .search-button {
   border-radius: 5px;
 }

@@ -1,10 +1,7 @@
 import React from "react";
 import Search from "../components/Search";
 
-
 export default function Homepage() {
-
-
   return (
     <div className="container text-center py-2 my-2">
       <div>
@@ -22,13 +19,8 @@ export default function Homepage() {
             <i className="fa-solid fa-seedling"></i>
           </h5>
         </div>
-    
         <Search className="searchbar" />
- 
       </div>
-     
-
-      
     </div>
   );
 }
