@@ -90,60 +90,60 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
   };
 
   const handleHeartClick = () => {
-    setIsFav((prevIsFav) => !prevIsFav);
+    console.log("test", isFav);
     setIsHeartClicked(true);
-  };
 
-  useEffect(() => {
-    const addToFavorites = async () => {
-      // we need to add logic to add the recipe to favourites with the given recipeId, name/name, and image
-      // for that we first need to store in favourites table in backend
-      const newFavourite = {
-        name: name,
-        image: imageURL,
-        api_id: recipe.api_id || recipe.id,
-      };
-      try {
-        await fetch(`/api/favourites`, {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newFavourite),
-        });
-      } catch (error) {
-        console.error("Error adding to favourites:", error);
-      }
-      setIsHeartClicked(false);
-    };
-
-    const deleteFromFavourites = async () => {
-      // if the heart is clicked to delete from favourites
-      const deleteFavourite = {
-        api_id: recipe.api_id || recipe.id,
-      };
-      try {
-        await fetch(`/api/favourites`, {
-          method: "DELETE",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(deleteFavourite),
-        });
-      } catch (error) {
-        console.error("Error deleting favourite:", error);
-      }
-      setIsHeartClicked(false);
-    };
-
-    if (isFav && isHeartClicked) {
+    if (!isFav) {
       addToFavorites();
-    } else if (!isFav && isHeartClicked) {
+    } else if (isFav) {
       deleteFromFavourites();
     }
-  }, [isFav, recipe.id, name, imageURL, isHeartClicked]);
+
+    setIsFav((prevIsFav) => !prevIsFav);
+  };
+
+  const addToFavorites = async () => {
+    // we need to add logic to add the recipe to favourites with the given recipeId, name/name, and image
+    // for that we first need to store in favourites table in backend
+    const newFavourite = {
+      name: name,
+      image: imageURL,
+      api_id: recipe.api_id || recipe.id,
+    };
+    try {
+      await fetch(`/api/favourites`, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFavourite),
+      });
+    } catch (error) {
+      console.error("Error adding to favourites:", error);
+    }
+    setIsHeartClicked(false);
+  };
+
+  const deleteFromFavourites = async () => {
+    // if the heart is clicked to delete from favourites
+    const deleteFavourite = {
+      api_id: recipe.api_id || recipe.id,
+    };
+    try {
+      await fetch(`/api/favourites`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(deleteFavourite),
+      });
+    } catch (error) {
+      console.error("Error deleting favourite:", error);
+    }
+    setIsHeartClicked(false);
+  };
 
   return (
     <>

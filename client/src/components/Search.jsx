@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useMemo } from "react";
 import SearchBar from "./SearchBar";
 import Results from "./Results";
 import RecipeCard from "./RecipeCard";
@@ -7,6 +7,11 @@ export default function Search({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [fullRecipe, setFullRecipe] = useState({});
   const [recipeFavourites, setRecipeFavourites] = useState([]);
+  const [item, setItem] = useState("");
+
+  const handleItemSearch = (searchItem) => {
+    setItem(searchItem);
+  };
 
   const handleSearch = async (searchItem) => {
     const ingredients = searchItem;
@@ -14,7 +19,7 @@ export default function Search({ children }) {
     // async function to fetch the search results
     try {
       const response = await fetch(
-        `/api/recipe/findByIngredients?ingredients=${ingredients}`,
+        `/api/recipe/findByIngredients?ingredients=${item}`,
         {
           method: "GET",
           headers: {
@@ -40,6 +45,8 @@ export default function Search({ children }) {
       console.error("Error fetching recipes:", error);
     }
   };
+
+  useMemo(() => handleSearch(), [item]);
 
   const handleRecipeClick = async (index) => {
     setFullRecipe(searchResults[index]);
@@ -71,7 +78,7 @@ export default function Search({ children }) {
   return (
     <>
       {" "}
-      {!fullRecipe.id && <SearchBar onSearch={handleSearch} />}
+      {!fullRecipe.id && <SearchBar onSearch={handleItemSearch} />}
       {!fullRecipe.id && (
         <Results
           recipeClicked={handleRecipeClick}
