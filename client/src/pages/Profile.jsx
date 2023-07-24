@@ -135,7 +135,7 @@ export default function Profile() {
 
         setRecipeFavourites(data);
       } catch (error) {
-        console.error("Error fetching recipe description:", error);
+        console.error("Error fetching favourite recipes:", error);
       }
     };
 
@@ -159,11 +159,11 @@ export default function Profile() {
           )}
         </div>
         <div className="row">
-        <div className="col-6 text-center mt-4">
-          <h3>
-            {user.first_name} {user.last_name}
-          </h3>
-        </div>
+          <div className="col-6 text-center mt-4">
+            <h3>
+              {user.first_name} {user.last_name}
+            </h3>
+          </div>
         </div>
 
         <div className="col-6 text-center mt-2">
@@ -195,9 +195,7 @@ export default function Profile() {
 
       {!isUpdating && (
         <div className="container py-2">
-          <h4 className="">
-            {user.cooking_skills} Chef
-          </h4>
+          <h4 className="">{user.cooking_skills} Chef</h4>
           <p className="text-desc">{user.description}</p>
 
           <div>
@@ -251,7 +249,6 @@ export default function Profile() {
           <RecipeCard
             recipe={favClicked}
             setFavouriteCard={setFavouriteCardOpen}
-            recipeFavourites={recipeFavourites}
           />
         )}
       </div>
