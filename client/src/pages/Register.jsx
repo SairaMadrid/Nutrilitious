@@ -93,18 +93,16 @@ export default function Register() {
     }
   };
 
-
   const handleTogglePassword = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-
   return (
     <div className="register-container text-left">
       <h3 className="register-header">Create an account</h3>
-      <h4 className="pb-4">
+      <h5 className="pb-4">
         Let's help you set up an account, it won't take long.
-      </h4>
+      </h5>
       <label className="">First name</label>
       <input
         className="register-input"
@@ -135,31 +133,34 @@ export default function Register() {
         placeholder="Email"
       />
       <div>
-        <label className="">Password</label>
         {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-
-        <input
-          className="register-input"
-          value={user.password}
-          onChange={handleChange}
-          name="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-        />
-        <button
-          type="button"
-          className="btn btn-light btn-sm mt-2"
-          onClick={handleTogglePassword}
-        >
-          {showPassword ? (
-            <i className="bi bi-eye-slash-fill"></i>
-          ) : (
-            <i className="bi bi-eye-fill"></i>
-          )}
-        </button>
+        <label className="">Password</label>
+        <div className="input-group mb-3">
+          <input
+            className="register-input form-control passInput"
+            value={user.password}
+            onChange={handleChange}
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+          />
+          <div className="input-group-append">
+            <button
+              type="button"
+              className="btn btn-outline-secondary eyebutton mx-2 px-2 py-2"
+              onClick={handleTogglePassword}
+            >
+              {showPassword ? (
+                <i className="bi bi-eye-fill"></i>
+              ) : (
+                <i className="bi bi-eye-slash-fill"></i>
+              )}
+            </button>
+          </div>
+        </div>
       </div>
 
       <label className="">Preferences</label>
@@ -178,8 +179,8 @@ export default function Register() {
           <input
             type="checkbox"
             name="cooking_skills"
-            value="novice"
-            checked={user.cooking_skills === "novice"}
+            value="Novice"
+            checked={user.cooking_skills === "Novice"}
             onChange={handleSkillsChange}
           />
           Novice chef
@@ -188,8 +189,8 @@ export default function Register() {
           <input
             type="checkbox"
             name="cooking_skills"
-            value="hobby"
-            checked={user.cooking_skills === "hobby"}
+            value="Hobby"
+            checked={user.cooking_skills === "Hobby"}
             onChange={handleSkillsChange}
           />
           Hobby chef
@@ -198,8 +199,8 @@ export default function Register() {
           <input
             type="checkbox"
             name="cooking_skills"
-            value="competent"
-            checked={user.cooking_skills === "competent"}
+            value="Competent"
+            checked={user.cooking_skills === "Competent"}
             onChange={handleSkillsChange}
           />
           Competent chef
@@ -208,8 +209,8 @@ export default function Register() {
           <input
             type="checkbox"
             name="cooking_skills"
-            value="expert"
-            checked={user.cooking_skills === "expert"}
+            value="Expert"
+            checked={user.cooking_skills === "Expert"}
             onChange={handleSkillsChange}
           />
           Expert chef

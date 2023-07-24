@@ -10,12 +10,29 @@ export default function RecipeCard({
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
-  const [isAlreadyFavourite, setIsAlreadyFavourite] = useState([]); // array holding all current favourites
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
 
-  const { name } = recipe;
+  const name = recipe.name || recipe.title;
+
+  useEffect(() => {
+    console.log(recipeFavourites);
+    const checkForFavourites = () => {
+      if (recipeFavourites && recipeFavourites.length > 0) {
+        for (let x of recipeFavourites) {
+          console.log(x);
+          if (x.api_id === recipe.api_id) {
+            console.log(recipe.api_id);
+            setIsFav(true);
+            break;
+          }
+        }
+      }
+      console.log(isFav);
+    };
+    checkForFavourites();
+  }, [recipeFavourites, recipe.api_id]);
 
   //fetching recipe description and ingredients below
   useEffect(() => {
@@ -45,12 +62,10 @@ export default function RecipeCard({
         console.error("Error fetching recipe description:", error);
       }
     };
+    // check if the heart of the favourites should be set to active/red or not!!!!!!!!!!!!!!!!!!!
 
     getRecipeDescription();
   }, [recipe]);
-
-  // check if the heart of the favourites should be set to active/red or not
-  // recipeFavourites need to be mapped and compared if the api_id equals recipe.id
 
   const handleButtonClick = () => {
     if (setRecipe) {
@@ -87,12 +102,13 @@ export default function RecipeCard({
       } catch (error) {
         console.error("Error adding to favourites:", error);
       }
+      setIsHeartClicked(false);
     };
 
     const deleteFromFavourites = async () => {
       // if the heart is clicked to delete from favourites
       const deleteFavourite = {
-        api_id: recipe.id,
+        api_id: recipe.api_id || recipe.id,
       };
       try {
         await fetch(`/api/favourites`, {
@@ -106,6 +122,7 @@ export default function RecipeCard({
       } catch (error) {
         console.error("Error deleting favourite:", error);
       }
+      setIsHeartClicked(false);
     };
 
     if (isFav && isHeartClicked) {
@@ -113,7 +130,7 @@ export default function RecipeCard({
     } else if (!isFav && isHeartClicked) {
       deleteFromFavourites();
     }
-  }, [isFav, recipe.id, name, imageURL]);
+  }, [isFav, recipe.id, name, imageURL, isHeartClicked]);
 
   return (
     <>

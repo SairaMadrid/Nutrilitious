@@ -10,6 +10,7 @@ CREATE TABLE `profiles`(
     `preferences` TEXT NOT NULL,
     `cooking_skills` TEXT NOT NULL,
     `description` TEXT NOT NULL,
+    `image` TEXT NOT NULL,
     UNIQUE KEY `profiles_email_unique`(`email`),
     PRIMARY KEY(`id`)
 );

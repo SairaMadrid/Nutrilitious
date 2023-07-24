@@ -14,12 +14,53 @@ export default function Profile() {
     preferences: "",
     cooking_skills: "",
     description: "",
+    image: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [recipeFavourites, setRecipeFavourites] = useState([]);
   const [favouriteCardOpen, setFavouriteCardOpen] = useState(false);
   const [favClicked, setFavClicked] = useState({}); // this object holds the favourite card that has been clicked
+
+  //image upload:
+  const [file, setFile] = useState(null);
+
+  const handleFileInputChange = (e) => {
+    const userFile = e.target.files[0];
+    setFile(userFile);
+  };
+
+  const handleImgUpload = async () => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "MyImage");
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dghvjhfui/image/upload",
+        formData
+      );
+      await axios.patch(
+        `/api/auth/profile/image`,
+        {
+          image: response.data["secure_url"],
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      setUser((prevUser) => ({
+        ...prevUser,
+        image: response.data["secure_url"],
+      }));
+    } catch (error) {
+      console.log("Error uploading image", error);
+    }
+  };
 
   useEffect(() => {
     const getProfile = async () => {
@@ -99,7 +140,7 @@ export default function Profile() {
     };
 
     getFavourites();
-  }, []);
+  }, [favouriteCardOpen, favClicked]);
 
   const handleFavouriteClick = (index) => {
     setFavClicked(recipeFavourites[index]);
@@ -111,20 +152,52 @@ export default function Profile() {
       <h1 className="text-center py-2">My Profile</h1>
       <div className="row pt-3">
         <div className="col-6 text-center">
-          <img className="avatar" src={chef} alt="avatar" />
+          {user.image ? (
+            <img className="avatar img-fluid" src={user.image} alt="avatar" />
+          ) : (
+            <img className="avatar" src={chef} alt="avatar" />
+          )}
         </div>
+        <div className="row">
         <div className="col-6 text-center mt-4">
           <h3>
             {user.first_name} {user.last_name}
           </h3>
         </div>
+        </div>
+
+        <div className="col-6 text-center mt-2">
+          <label htmlFor="fileInput">
+            <span className="imgInput" style={{ cursor: "pointer" }}>
+              Click to change profile image
+            </span>
+          </label>
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
+          />
+        </div>
+        <div className="row">
+          <div className="col-6 text-center py-2">
+            <button
+              className="btn btn-success py-1 btn-sm"
+              onClick={handleImgUpload}
+            >
+              Upload
+            </button>
+          </div>
+        </div>
       </div>
       <br />
+
       {!isUpdating && (
         <div className="container py-2">
-          <p className="text-desc" style={{ fontSize: "18px" }}>
-            {user.cooking_skills} chef
-          </p>
+          <h4 className="">
+            {user.cooking_skills} Chef
+          </h4>
           <p className="text-desc">{user.description}</p>
 
           <div>

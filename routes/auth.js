@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
     const hash = await bcrypt.hash(password, saltRounds);
 
     await db(
-      `INSERT INTO profiles (first_name, last_name, email, password, preferences, cooking_skills, description) VALUES ("${first_name}", "${last_name}", "${email}", "${hash}", "${preferences}", "${cooking_skills}", "${description}");`
+      `INSERT INTO profiles (first_name, last_name, email, password, preferences, cooking_skills, description, image) VALUES ("${first_name}", "${last_name}", "${email}", "${hash}", "${preferences}", "${cooking_skills}", "${description}", "");`
     );
 
     res.send({ message: "Register successful" });
@@ -106,5 +106,24 @@ router.patch("/profile", userShouldBeLoggedIn, async function (req, res, next) {
     res.status(500).send({ message: error.message });
   }
 });
+
+router.patch("/profile/image", userShouldBeLoggedIn, async (req, res) => {
+  try {
+    const { id } = req; 
+    const imageUrl = req.body.image; 
+
+    const results = await db(`SELECT * FROM profiles WHERE id = ${id};`);
+    const user = results.data[0];
+    if (!user) {
+      throw new Error("User does not exist");
+    }
+
+    await db(`UPDATE profiles SET image = "${imageUrl}" WHERE id = ${id};`);
+    res.send(user)
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
 
 module.exports = router;

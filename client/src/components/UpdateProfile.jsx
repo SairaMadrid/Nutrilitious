@@ -38,8 +38,8 @@ export default function UpdateProfile({
             <input
               type="checkbox"
               name="cooking_skills"
-              value="novice"
-              checked={cookingSkills === "novice"}
+              value="Novice"
+              checked={cookingSkills === "Novice"}
               onChange={handleChange}
             />
             Novice chef
@@ -48,8 +48,8 @@ export default function UpdateProfile({
             <input
               type="checkbox"
               name="cooking_skills"
-              value="hobby"
-              checked={cookingSkills === "hobby"}
+              value="Hobby"
+              checked={cookingSkills === "Hobby"}
               onChange={handleChange}
             />
             Hobby chef
@@ -58,8 +58,8 @@ export default function UpdateProfile({
             <input
               type="checkbox"
               name="cooking_skills"
-              value="competent"
-              checked={cookingSkills === "competent"}
+              value="Competent"
+              checked={cookingSkills === "Competent"}
               onChange={handleChange}
             />
             Competent chef
@@ -68,15 +68,17 @@ export default function UpdateProfile({
             <input
               type="checkbox"
               name="cooking_skills"
-              value="expert"
-              checked={cookingSkills === "expert"}
+              value="Expert"
+              checked={cookingSkills === "Expert"}
               onChange={handleChange}
             />
             Expert chef
           </label>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>
+        <button 
+        className="btn btn-success py-1 btn-sm"
+        type="submit" onClick={handleSubmit}>
           Save
         </button>
       </form>
