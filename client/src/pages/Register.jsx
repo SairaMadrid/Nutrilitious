@@ -103,50 +103,66 @@ export default function Register() {
       <h5 className="pb-4">
         Let's help you set up an account, it won't take long.
       </h5>
-      <label className="">First name</label>
-      <input
-        className="register-input"
-        value={user.first_name}
-        onChange={handleChange}
-        name="first_name"
-        type="text"
-        placeholder="First name"
-      />
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">First name</label>
+      <div className="form-floating">
+        <input
+          className="form-control"
+          value={user.first_name}
+          onChange={handleChange}
+          name="first_name"
+          type="text"
+          placeholder="First name"
+        />
+        <label className="form-label text-sm">Enter first name</label>
+      </div>
 
-      <label className="">Last name</label>
-      <input
-        className="register-input"
-        value={user.last_name}
-        onChange={handleChange}
-        name="last_name"
-        type="text"
-        placeholder="Last name"
-      />
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">Last name</label>
+      <div className="form-floating">
+        <input
+          className="form-control"
+          value={user.last_name}
+          onChange={handleChange}
+          name="last_name"
+          type="text"
+          placeholder="Last name"
+        />
+        <label className="form-label text-sm">Enter last name</label>
+      </div>
 
-      <label className="">Email</label>
-      <input
-        className="register-input"
-        value={user.email}
-        onChange={handleChange}
-        name="email"
-        type="text"
-        placeholder="Email"
-      />
-      <div>
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">Email</label>
+      <div className="form-floating">
+        <input
+          className="form-control"
+          value={user.email}
+          onChange={handleChange}
+          name="email"
+          type="text"
+          placeholder="Email"
+        />
+        <label className="form-label text-sm">Enter email</label>
+      </div>
+
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">Password</label>
+      <div className="form-floating">
         {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-        <label className="">Password</label>
-        <div className="input-group mb-3">
+        <label className="form-label text-sm">Enter password</label>
+        <div className="input-group mb-6">
           <input
             className="register-input form-control passInput"
             value={user.password}
             onChange={handleChange}
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder=""
           />
+
           <div className="input-group-append">
             <button
               type="button"
@@ -162,17 +178,19 @@ export default function Register() {
           </div>
         </div>
       </div>
-
-      <label className="">Preferences</label>
-      <input
-        className="register-input"
-        value={user.preferences}
-        onChange={handleChange}
-        name="preferences"
-        type="text"
-        placeholder="Any dietary requirements?"
-      />
-
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">Preferences</label>
+      <div className="form-floating">
+        <input
+          className="form-control"
+          value={user.preferences}
+          onChange={handleChange}
+          name="preferences"
+          type="text"
+          placeholder=""
+        />
+        <label className="form-label text-sm">Enter dietary preferences</label>
+      </div>
       <label className="">Cooking Skills</label>
       <div className="checkbox-container">
         <label>
@@ -216,16 +234,20 @@ export default function Register() {
           Expert chef
         </label>
       </div>
+      <div className="col-sm-4 offset-sm-4 mt-2 mb-4"></div>
+      <label className="form-label start">Description</label>
+      <div className="form-floating">
+        <input
+          className="form-control"
+          value={user.description}
+          onChange={handleChange}
+          name="description"
+          type="text"
+          placeholder=""
+        />
 
-      <label className="">Description</label>
-      <input
-        className="register-input"
-        value={user.description}
-        onChange={handleChange}
-        name="description"
-        type="text"
-        placeholder="Describe yourself"
-      />
+        <label className="form-label text-sm">Describe yourself</label>
+      </div>
       <br></br>
       <button
         className="btn btn-success my-2 py-2 col-12 col-sm-4"
