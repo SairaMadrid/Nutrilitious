@@ -20,6 +20,7 @@ export default function useProvideAuth() {
   
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("imageURL");
     setIsLoggedIn(false);
   };
 
