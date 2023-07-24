@@ -1,11 +1,6 @@
 import { React, useState, useEffect } from "react";
 
-export default function RecipeCard({
-  recipe,
-  setRecipe,
-  setFavouriteCard,
-  recipeFavourites,
-}) {
+export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
@@ -13,23 +8,42 @@ export default function RecipeCard({
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const [recipeFavourites, setRecipeFavourites] = useState([]);
 
   const name = recipe.name || recipe.title;
 
   useEffect(() => {
-    console.log(recipeFavourites);
+    const getFavourites = async () => {
+      try {
+        const response = await fetch(`/api/favourites`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+
+        const data = await response.json();
+
+        setRecipeFavourites(data);
+      } catch (error) {
+        console.error("Error fetching favourite recipes:", error);
+      }
+    };
+
+    getFavourites();
+  }, []);
+
+  useEffect(() => {
     const checkForFavourites = () => {
       if (recipeFavourites && recipeFavourites.length > 0) {
         for (let x of recipeFavourites) {
-          console.log(x);
           if (x.api_id === recipe.api_id) {
-            console.log(recipe.api_id);
             setIsFav(true);
             break;
           }
         }
       }
-      console.log(isFav);
     };
     checkForFavourites();
   }, [recipeFavourites, recipe.api_id]);
@@ -62,7 +76,6 @@ export default function RecipeCard({
         console.error("Error fetching recipe description:", error);
       }
     };
-    // check if the heart of the favourites should be set to active/red or not!!!!!!!!!!!!!!!!!!!
 
     getRecipeDescription();
   }, [recipe]);
