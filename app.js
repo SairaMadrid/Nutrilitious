@@ -11,6 +11,7 @@ let assistantRouter = require("./routes/assistant");
 let authRouter = require("./routes/auth");
 let favouritesRouter = require("./routes/favourites");
 
+
 var app = express();
 app.use(cors());
 
@@ -26,4 +27,5 @@ app.use("/api/recipe", recipeRouter);
 app.use("/api/assistant", assistantRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/favourites", favouritesRouter);
+
 module.exports = app;

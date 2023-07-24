@@ -54,9 +54,11 @@ body {
   color: rgb(107, 107, 107);
 }
 .avatar {
-  width: 120px;
-  border-radius: 50%;
+  width: 150px;
+  border-radius: 35%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .text-bigger {
   font-size: 17px;
   display: flex;
@@ -69,8 +71,13 @@ body {
   width: 65%; 
   margin: 0 auto; 
 }
-
-
+.imgInput {
+  text-decoration: underline;
+  color: rgb(121, 187, 22)
+}
+.imgInput:hover{
+  color: green;
+}
 .password-button {
   color: red;
 }
