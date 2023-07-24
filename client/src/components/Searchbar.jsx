@@ -15,13 +15,13 @@ export default function SearchBar({ onSearch }) {
     <div>
       <input
         type="text"
-
         placeholder="Search by ingredients..."
-
         value={searchItems}
         onChange={handleChange}
       />{" "}
-      <button onClick={handleSearch}>Search</button>
+      <button className="search-button" onClick={handleSearch}>
+        Search
+      </button>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function Register() {
     description: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const [togglePassword, setTogglePassword] = useState("password");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -93,9 +93,9 @@ export default function Register() {
     }
   };
 
-  const handleToggle = () => {
-    
-  }
+  const handleTogglePassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   return (
     <div className="register-container text-left">
@@ -132,21 +132,36 @@ export default function Register() {
         type="text"
         placeholder="Email"
       />
-
-      <label className="">Password</label>
-      {/*   <PasswordInput
+      <div>
+        {/*   <PasswordInput
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-      <input
-        className="register-input"
-        value={user.password}
-        onChange={handleChange}
-        name="password"
-        type={togglePassword}
-        placeholder="Password"
-      />
-      <button onClick={() => setTogglePassword("text")}>Test</button>
+        <label className="">Password</label>
+        <div className="input-group mb-3">
+          <input
+            className="register-input form-control passInput"
+            value={user.password}
+            onChange={handleChange}
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+          />
+          <div className="input-group-append">
+            <button
+              type="button"
+              className="btn btn-outline-secondary eyebutton"
+              onClick={handleTogglePassword}
+            >
+              {showPassword ? (
+                <i className="bi bi-eye-fill"></i>
+              ) : (
+                <i className="bi bi-eye-slash-fill"></i>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
 
       <label className="">Preferences</label>
       <input

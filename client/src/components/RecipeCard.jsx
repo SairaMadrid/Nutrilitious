@@ -1,36 +1,43 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
-export default function RecipeCard({ recipe, setRecipe }) {
+export default function RecipeCard({
+  recipe,
+  setRecipe,
+  setFavouriteCard,
+  recipeFavourites,
+}) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
   const [servingSize, setServingSize] = useState(0);
   const [imageURL, setImageURL] = useState("");
   const [isFav, setIsFav] = useState(false);
-  const [userID, setUserID] = useState("");
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
 
-  const { title } = recipe;
+  const name = recipe.name || recipe.title;
 
-  //fetching necessary userID for favourites function as well as recipe description and ingredients below
   useEffect(() => {
-    const getUserID = async () => {
-      try {
-        const { data } = await axios("/api/auth/profile", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
-        setUserID(data.id);
-      } catch (error) {
-        console.log(error);
+    console.log(recipeFavourites);
+    const checkForFavourites = () => {
+      if (recipeFavourites && recipeFavourites.length > 0) {
+        for (let x of recipeFavourites) {
+          if (x.api_id === recipe.api_id) {
+            setIsFav(true);
+            break;
+          }
+        }
       }
+      console.log(isFav);
     };
+    checkForFavourites();
+  }, [recipeFavourites, recipe.api_id]);
 
+  //fetching recipe description and ingredients below
+  useEffect(() => {
+    const foodID = recipe.api_id || recipe.id;
     const getRecipeDescription = async () => {
       try {
-        const response = await fetch(`/api/recipe/?id=${recipe.id}`, {
+        const response = await fetch(`/api/recipe/?id=${foodID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -53,47 +60,90 @@ export default function RecipeCard({ recipe, setRecipe }) {
         console.error("Error fetching recipe description:", error);
       }
     };
-    getUserID();
+    // check if the heart of the favourites should be set to active/red or not!!!!!!!!!!!!!!!!!!!
+
     getRecipeDescription();
-    console.log(userID);
   }, [recipe]);
 
   const handleButtonClick = () => {
-    setRecipe({});
+    if (setRecipe) {
+      setRecipe({});
+    }
+    if (setFavouriteCard) {
+      setFavouriteCard(false);
+    }
   };
 
   const handleHeartClick = () => {
     setIsFav((prevIsFav) => !prevIsFav);
-
-    console.log(isFav);
+    setIsHeartClicked(true);
   };
 
   useEffect(() => {
-    if (isFav) {
-      addToFavorites(recipe.id, title, imageURL, userID);
-    }
-  }, [isFav]);
+    const addToFavorites = async () => {
+      // we need to add logic to add the recipe to favourites with the given recipeId, name/name, and image
+      // for that we first need to store in favourites table in backend
+      const newFavourite = {
+        name: name,
+        image: imageURL,
+        api_id: recipe.api_id || recipe.id,
+      };
+      try {
+        await fetch(`/api/favourites`, {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newFavourite),
+        });
+      } catch (error) {
+        console.error("Error adding to favourites:", error);
+      }
+      setIsHeartClicked(false);
+    };
 
-  const addToFavorites = async (recipeId, name, image, userID) => {
-    console.log("Recipe added to favourites with ID:", recipeId);
-    // we need to add logic to add the recipe to favourites with the given recipeId, name/title, and image
-    // for that we first need to store in favourites table in backend and also send the userID
-  };
+    const deleteFromFavourites = async () => {
+      // if the heart is clicked to delete from favourites
+      const deleteFavourite = {
+        api_id: recipe.api_id || recipe.id,
+      };
+      try {
+        await fetch(`/api/favourites`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(deleteFavourite),
+        });
+      } catch (error) {
+        console.error("Error deleting favourite:", error);
+      }
+      setIsHeartClicked(false);
+    };
+
+    if (isFav && isHeartClicked) {
+      addToFavorites();
+    } else if (!isFav && isHeartClicked) {
+      deleteFromFavourites();
+    }
+  }, [isFav, recipe.id, name, imageURL, isHeartClicked]);
 
   return (
     <>
-      <h2>Here Is Your {title} Recipe</h2>
+      <h2>Here Is Your {name} Recipe</h2>
       <div className="card" style={{ width: "35em", height: "auto" }}>
         <div style={{ textAlign: "center", marginTop: "3%" }}>
           <img
             className="card-img-top"
             src={imageURL}
             style={{ width: "30em", height: "auto" }}
-            alt={`Image of ${title}`}
+            alt={`Image of ${name}`}
           />
         </div>
         <div className="card-body">
-          <h4 className="card-title">{title}</h4>
+          <h4 className="card-title">{name}</h4>
           <h5>Ingredients:</h5>
           <ul>
             {ingredients.map((ingredient, index) => (
@@ -123,6 +173,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
               {servingSize}
             </span>
           </h6>
+
           <div className="heart-icon">
             <i
               onClick={handleHeartClick}
@@ -132,7 +183,7 @@ export default function RecipeCard({ recipe, setRecipe }) {
           </div>
         </div>
       </div>
-      <button onClick={handleButtonClick}>Back to the overview</button>
+      <button onClick={handleButtonClick}>Back to results</button>
     </>
   );
 }

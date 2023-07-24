@@ -68,24 +68,107 @@ body {
 }
 
 .text-container {
-  width: 65%; 
-  margin: 0 auto; 
-}
-.imgInput {
-  text-decoration: underline;
-  color: rgb(121, 187, 22)
-}
-.imgInput:hover{
-  color: green;
+  width: 65%;
+  margin: 0 auto;
 }
 .password-button {
   color: red;
 }
 
+.search-input {
+  border-radius: 5px;
+  border-color: rgb(21, 19, 19);
+}
+
+.search-button {
+  border-radius: 5px;
+}
+
+/* for recipe card: */
 .heart-icon {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
   color: rgb(116, 108, 108);
   font-size: 1.5em;
+}
+
+/* for search results */
+
+@media (min-width: 2000px) {
+  .row-cols-md-3 {
+    /* for wide screens, show 6 cards in one row */
+    column-count: 4;
+  }
+
+  /* adapting the width of individual cards to fit the columns */
+  .col {
+    width: calc(100% / 4);
+  }
+}
+
+/* for the custom password visibility input box */
+
+span#basic-addon2.input-group-text {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.eyebutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+  line-height: 1;
+}
+
+.eyebutton:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.register-input {
+  margin-bottom: 0;
+}
+
+.input-group {
+  margin-bottom: 0;
+  align-items: center;
+}
+
+input.passInput {
+  margin-bottom: 0;
+}
+
+/* splash screen/homepage */
+
+.homepage-header {
+  margin-top: 50px;
+}
+
+.background-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1; /* Set a negative z-index to place it behind other content */
+}
+
+.searchbar {
+  text-align: center;
+}
+
+.logo {
+  height: 70px;
+}
+
+.container-home {
+  padding-left: 80px;
 }
