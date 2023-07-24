@@ -17,7 +17,14 @@ export default function Homepage() {
   return (
     <div className="container-home">
       <div>
-        <h1 className="homepage-header">Get cooking!</h1>
+        <h1
+          className="homepage-header"
+          style={{
+            marginTop: "10%",
+          }}
+        >
+          Get cooking!
+        </h1>
         <div>
           <h5 className="homepage-blurb">
             Find a recipe to use up whatever you have in your fridge.
@@ -28,7 +35,14 @@ export default function Homepage() {
       </div>
       <div style={containerStyle}></div>
 
-      <img className="background-home" src={background} alt="background" />
+      <img
+        className="background-home"
+        src={background}
+        alt="background"
+        style={{
+          objectFit: "cover",
+        }}
+      />
     </div>
   );
 }

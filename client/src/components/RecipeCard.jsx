@@ -17,6 +17,7 @@ export default function RecipeCard({
   const name = recipe.name || recipe.title;
 
   useEffect(() => {
+    console.log(recipeFavourites);
     if (recipeFavourites && recipeFavourites.length > 0) {
       for (let x of recipeFavourites) {
         if (x.api_id === recipe.api_id) {
@@ -25,7 +26,8 @@ export default function RecipeCard({
         }
       }
     }
-  }, [recipeFavourites, recipe.api_id]);
+    console.log(isFav);
+  }, [recipeFavourites, recipe.api_id, isFav]);
 
   //fetching recipe description and ingredients below
   useEffect(() => {
@@ -95,6 +97,7 @@ export default function RecipeCard({
       } catch (error) {
         console.error("Error adding to favourites:", error);
       }
+      setIsHeartClicked(false);
     };
 
     const deleteFromFavourites = async () => {
@@ -114,6 +117,7 @@ export default function RecipeCard({
       } catch (error) {
         console.error("Error deleting favourite:", error);
       }
+      setIsHeartClicked(false);
     };
 
     if (isFav && isHeartClicked) {
