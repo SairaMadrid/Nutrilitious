@@ -158,10 +158,12 @@ export default function Profile() {
             <img className="avatar" src={chef} alt="avatar" />
           )}
         </div>
+        <div className="row">
         <div className="col-6 text-center mt-4">
           <h3>
             {user.first_name} {user.last_name}
           </h3>
+        </div>
         </div>
 
         <div className="col-6 text-center mt-2">
@@ -193,9 +195,9 @@ export default function Profile() {
 
       {!isUpdating && (
         <div className="container py-2">
-          <p className="text-desc" style={{ fontSize: "18px" }}>
-            {user.cooking_skills} chef
-          </p>
+          <h4 className="">
+            {user.cooking_skills} Chef
+          </h4>
           <p className="text-desc">{user.description}</p>
 
           <div>

@@ -21,7 +21,9 @@ export default function RecipeCard({
     const checkForFavourites = () => {
       if (recipeFavourites && recipeFavourites.length > 0) {
         for (let x of recipeFavourites) {
+          console.log(x);
           if (x.api_id === recipe.api_id) {
+            console.log(recipe.api_id);
             setIsFav(true);
             break;
           }

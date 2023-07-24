@@ -54,11 +54,17 @@ body {
   color: rgb(107, 107, 107);
 }
 .avatar {
-  width: 150px;
-  border-radius: 35%;
+  width: 250px;
+  border-radius: 40%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+.imgInput{
+  color: rgb(52, 158, 52);
+  text-decoration: underline;
+}
+.imgInput:hover {
+  color: darkgreen;
+}
 .text-bigger {
   font-size: 17px;
   display: flex;
