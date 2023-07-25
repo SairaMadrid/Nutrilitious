@@ -37,13 +37,13 @@
   margin-left: 5px;
 }
 
-.register-input {
+/* .register-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
+} */
 
 .register-button {
   display: block;
@@ -60,4 +60,8 @@
 
 .register-button:hover {
   background-color: #45a049;
+}
+
+.form-control {
+  height: 60%;
 }
