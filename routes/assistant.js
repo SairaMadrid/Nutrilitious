@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 require("dotenv").config();
-//const axios = require("axios");
+const axios = require("axios");
 const { Configuration, OpenAIApi } = require("openai");
 const db = require("../model/helper");
 const userShouldBeLoggedIn = require("../guard/userShouldBeLoggedIn");
