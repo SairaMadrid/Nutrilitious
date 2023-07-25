@@ -6,20 +6,16 @@ import RecipeCard from "./RecipeCard";
 export default function Search({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [fullRecipe, setFullRecipe] = useState({});
-  const [recipeFavourites, setRecipeFavourites] = useState([]);
-  const [item, setItem] = useState("");
-
-  const handleItemSearch = (searchItem) => {
-    setItem(searchItem);
-  };
+  const [showRecipe, setShowRecipe] = useState(false);
 
   const handleSearch = async (searchItem) => {
     const ingredients = searchItem;
+    console.log(ingredients);
 
     // async function to fetch the search results
     try {
       const response = await fetch(
-        `/api/recipe/findByIngredients?ingredients=${item}`,
+        `/api/recipe/findByIngredients?ingredients=${ingredients}`,
         {
           method: "GET",
           headers: {
@@ -46,50 +42,28 @@ export default function Search({ children }) {
     }
   };
 
-  useMemo(() => handleSearch(), [item]);
+  /* useMemo(() => handleSearch(), [searchItem]); */
 
-  const handleRecipeClick = async (index) => {
-    setFullRecipe(searchResults[index]);
+  const handleRecipeClick = async (recipe) => {
+    setFullRecipe(recipe);
+    setShowRecipe(true);
   };
-
-  // need to access the favourites here so that the RecipeCard displays the correct heart status
-  useEffect(() => {
-    const getFavourites = async () => {
-      try {
-        const response = await fetch(`/api/favourites`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
-
-        const data = await response.json();
-
-        setRecipeFavourites(data);
-      } catch (error) {
-        console.error("Error fetching recipe description:", error);
-      }
-    };
-
-    getFavourites();
-  }, []);
 
   return (
     <>
       {" "}
-      {!fullRecipe.id && <SearchBar onSearch={handleItemSearch} />}
-      {!fullRecipe.id && (
+      {!showRecipe && <SearchBar onSearch={handleSearch} />}
+      {!showRecipe && (
         <Results
           recipeClicked={handleRecipeClick}
           searchResults={searchResults}
         />
       )}
-      {fullRecipe.id && (
+      {showRecipe && (
         <RecipeCard
-          recipeFavourites={recipeFavourites}
           recipe={fullRecipe}
           setRecipe={setFullRecipe}
+          setShowRecipe={setShowRecipe}
         />
       )}
     </>

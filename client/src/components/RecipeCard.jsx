@@ -1,6 +1,11 @@
 import { React, useState, useEffect } from "react";
 
-export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
+export default function RecipeCard({
+  recipe,
+  setRecipe,
+  setFavouriteCard,
+  setShowRecipe,
+}) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState("");
   const [cookingTime, setCookingTime] = useState(0);
@@ -14,8 +19,10 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
 
   useEffect(() => {
     const getFavourites = async () => {
+      const recipeID = recipe.api_id || recipe.id;
+      console.log(recipeID);
       try {
-        const response = await fetch(`/api/favourites`, {
+        const response = await fetch(`/api/favourites/${recipeID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -24,8 +31,12 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
         });
 
         const data = await response.json();
-
-        setRecipeFavourites(data);
+        if (data.length) {
+          setRecipeFavourites(data);
+          setIsFav(true);
+        } else {
+          setIsFav(false);
+        }
       } catch (error) {
         console.error("Error fetching favourite recipes:", error);
       }
@@ -33,20 +44,6 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
 
     getFavourites();
   }, []);
-
-  useEffect(() => {
-    const checkForFavourites = () => {
-      if (recipeFavourites && recipeFavourites.length > 0) {
-        for (let x of recipeFavourites) {
-          if (x.api_id === recipe.api_id) {
-            setIsFav(true);
-            break;
-          }
-        }
-      }
-    };
-    checkForFavourites();
-  }, [recipeFavourites, recipe.api_id]);
 
   //fetching recipe description and ingredients below
   useEffect(() => {
@@ -82,7 +79,7 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
 
   const handleButtonClick = () => {
     if (setRecipe) {
-      setRecipe({});
+      setShowRecipe(false);
     }
     if (setFavouriteCard) {
       setFavouriteCard(false);
@@ -90,7 +87,6 @@ export default function RecipeCard({ recipe, setRecipe, setFavouriteCard }) {
   };
 
   const handleHeartClick = () => {
-    console.log("test", isFav);
     setIsHeartClicked(true);
 
     if (!isFav) {
