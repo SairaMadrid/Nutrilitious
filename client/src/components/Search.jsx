@@ -42,8 +42,6 @@ export default function Search({ children }) {
     }
   };
 
-  /* useMemo(() => handleSearch(), [searchItem]); */
-
   const handleRecipeClick = async (recipe) => {
     setFullRecipe(recipe);
     setShowRecipe(true);
