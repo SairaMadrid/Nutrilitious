@@ -1,6 +1,7 @@
 DROP TABLE if exists `favourites`;
 DROP TABLE if exists `profiles`;
 
+
 CREATE TABLE `profiles`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `first_name` VARCHAR(255) NOT NULL,
