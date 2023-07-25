@@ -94,6 +94,14 @@ body {
   font-size: 1.5em;
 }
 
+.recipe-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 3% auto;
+}
+
 /* for search results */
 
 @media (min-width: 2000px) {

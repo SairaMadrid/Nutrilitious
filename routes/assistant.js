@@ -62,6 +62,7 @@ router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
       output: completion.data.choices[0].message.content,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).send(error.message);
   }
 });
