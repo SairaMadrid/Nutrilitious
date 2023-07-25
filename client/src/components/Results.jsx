@@ -28,8 +28,8 @@ export default function Results({ searchResults, recipeClicked }) {
     getRecipeImages();
   }, [searchResults]);
 
-  const handleRecipeClick = (index) => {
-    recipeClicked(index);
+  const handleRecipeClick = (recipe) => {
+    recipeClicked(recipe);
   };
 
   return (
@@ -47,7 +47,7 @@ export default function Results({ searchResults, recipeClicked }) {
                   objectFit: "cover",
                   cursor: "pointer",
                 }}
-                onClick={() => handleRecipeClick(index)}
+                onClick={() => handleRecipeClick(result)}
               />
             )}
             <div className="card-body">
