@@ -152,7 +152,7 @@ export default function Register() {
   value={user.password}
   onChange={handlePasswordChange}
       /> */}
-        <label className="form-label text-sm">Enter password</label>
+
         <div className="input-group mb-6">
           <input
             className="register-input form-control passInput"
