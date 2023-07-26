@@ -23,8 +23,11 @@ export default function Navbar() {
           {/* Right-aligned Links */}
           {!auth.isLoggedIn && (
             <div className="navbar-nav">
-              <Link className="nav-item nav-link" to="/">
+              <Link className="nav-item nav-link" to="/homepage">
                 <i className="fas fa-home"></i> Homepage
+              </Link>
+              <Link className="nav-item nav-link" to="/about">
+              <i className="fa-solid fa-info"></i> About
               </Link>
               <Link className="nav-item nav-link" to="/register">
                 <i className="fas fa-user-plus"></i> Register
@@ -39,7 +42,7 @@ export default function Navbar() {
               <Link className="nav-item nav-link" to="/profile">
                 <i className="fas fa-user"></i> Profile
               </Link>
-              <Link className="nav-item nav-link" to="/">
+              <Link className="nav-item nav-link" to="/homepage">
                 <i className="fas fa-home"></i> Homepage
               </Link>
               <button className="btn btn-outline-danger" onClick={logout}>
