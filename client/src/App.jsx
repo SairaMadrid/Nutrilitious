@@ -18,9 +18,6 @@ function App() {
     <AuthProvider>
       <div className="wrapper">
         <Navbar />
-        {/* <h1>Nutrilitious</h1>
-        <h3>Get cooking!</h3> */}
-
         <Routes>
           <Route exact path="/" element={<Splash />}></Route>
           <Route exact path="/homepage" element={<Homepage />}></Route>

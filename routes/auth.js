@@ -92,7 +92,7 @@ router.patch("/profile", userShouldBeLoggedIn, async function (req, res, next) {
     if (cooking_skills)
       updatedProfileInfo.push(`cooking_skills = "${cooking_skills}"`);
     if (description) updatedProfileInfo.push(`description = "${description}"`);
-    // just in case npthing has been sent/changed
+    // just in case nothing has been sent/changed
     if (updatedProfileInfo.length === 0) {
       return res.status(400).send({ message: "No fields to update" });
     }
@@ -109,8 +109,8 @@ router.patch("/profile", userShouldBeLoggedIn, async function (req, res, next) {
 
 router.patch("/profile/image", userShouldBeLoggedIn, async (req, res) => {
   try {
-    const { id } = req; 
-    const imageUrl = req.body.image; 
+    const { id } = req;
+    const imageUrl = req.body.image;
 
     const results = await db(`SELECT * FROM profiles WHERE id = ${id};`);
     const user = results.data[0];
@@ -119,11 +119,10 @@ router.patch("/profile/image", userShouldBeLoggedIn, async (req, res) => {
     }
 
     await db(`UPDATE profiles SET image = "${imageUrl}" WHERE id = ${id};`);
-    res.send(user)
+    res.send(user);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 });
-
 
 module.exports = router;
