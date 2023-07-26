@@ -192,7 +192,7 @@ export default function Register() {
         <label className="form-label text-sm">Enter dietary preferences</label>
       </div>
       <label className="">Cooking Skills</label>
-      <div className="checkbox-container">
+      <div className="checkbox-container ps-2">
         <label>
           <input
             type="checkbox"
