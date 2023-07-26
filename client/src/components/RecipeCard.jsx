@@ -138,73 +138,81 @@ export default function RecipeCard({
 
   return (
     <>
-      <h2>Here Is Your {name} Recipe</h2>
-      <div className="recipe-card-container">
-        <div className="card" style={{ width: "35em", height: "auto" }}>
-          <div style={{ textAlign: "center", marginTop: "3%" }}>
-            <img
-              className="card-img-top"
-              src={imageURL}
-              style={{ width: "30em", height: "auto" }}
-              alt={`Image of ${name}`}
-            />
-          </div>
-          <div className="card-body">
-            <h4 className="card-title">{name}</h4>
-            <h5>Ingredients:</h5>
-            <ul>
-              {ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-            <h5>Instructions:</h5>
-            <div
-              className="card-text"
-              dangerouslySetInnerHTML={{ __html: instructions }} //This line I asked ChatGPT about and it works well
-            ></div>
-            <div className="card-text" style={{ marginTop: "2%" }}>
+      <div className="container">
+        <div className="recipe-card-container">
+          <div className="card" style={{ width: "35em", height: "auto" }}>
+            <div style={{ textAlign: "center", marginTop: "3%" }}>
+              <img
+                className="card-img-top"
+                src={imageURL}
+                style={{ width: "30em", height: "auto" }}
+                alt={`Image of ${name}`}
+              />
+            </div>
+            <div className="card-body">
+              <h4 className="card-title">{name}</h4>
+              <h5>Ingredients:</h5>
+              <ul>
+                {ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+              <h5>Instructions:</h5>
+              <div
+                className="card-text"
+                dangerouslySetInnerHTML={{ __html: instructions }} //This line I asked ChatGPT about and it works well
+              ></div>
+              <div className="card-text" style={{ marginTop: "2%" }}>
+                <h6>
+                  Cooking Time:{" "}
+                  <span
+                    style={{
+                      fontSize: "15px",
+                      fontFamily: "'Karla', sans-serif",
+                    }}
+                  >
+                    {cookingTime} minutes
+                  </span>
+                </h6>
+              </div>
               <h6>
-                Cooking Time:{" "}
+                Serving Size:{" "}
                 <span
                   style={{
                     fontSize: "15px",
                     fontFamily: "'Karla', sans-serif",
                   }}
                 >
-                  {cookingTime} minutes
+                  {servingSize}
                 </span>
               </h6>
-            </div>
-            <h6>
-              Serving Size:{" "}
-              <span
-                style={{ fontSize: "15px", fontFamily: "'Karla', sans-serif" }}
-              >
-                {servingSize}
-              </span>
-            </h6>
 
-            <div className="heart-icon">
-              <i
-                onClick={handleHeartClick}
-                className="fas fa-heart"
-                style={{ color: isFav ? "red" : "inherit" }}
-              ></i>
+              <div className="heart-icon">
+                <i
+                  onClick={handleHeartClick}
+                  className="fas fa-heart"
+                  style={{ color: isFav ? "red" : "inherit" }}
+                ></i>
+              </div>
             </div>
+            <button
+              className="btn btn-success px-4"
+              style={{
+                display: "block",
+                margin: "2 auto",
+                marginTop: "2%",
+                marginBottom: "2%",
+                maxWidth: "12rem",
+                alignSelf: "center",
+                alignContent: "center",
+              }}
+              onClick={handleButtonClick}
+            >
+              Back to results
+            </button>
           </div>
         </div>
       </div>
-      <button
-        className="btn btn-success px-4"
-        style={{
-          display: "block",
-          margin: "0 auto",
-          marginTop: "10px",
-        }}
-        onClick={handleButtonClick}
-      >
-        Back to results
-      </button>
     </>
   );
 }

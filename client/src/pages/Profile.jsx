@@ -217,43 +217,45 @@ export default function Profile() {
           cookingSkills={user.cooking_skills}
         />
       )}
-      <div style={{ marginTop: "3%" }}>
-        <h4>Your Favorite Recipes:</h4>
-        {!favouriteCardOpen && (
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {recipeFavourites.map((result, index) => (
-              <div key={result.id} className="col">
-                <div className="card">
-                  {result.image && (
-                    <img
-                      className="card-img-top"
-                      src={result.image}
-                      alt={`Image of ${result.name}`}
-                      style={{
-                        height: "100px",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => handleFavouriteClick(index)}
-                    />
-                  )}
-                  <div className="card-body">
-                    <h5 className="card-title">{result.name}</h5>
+      <div className="container">
+        <div style={{ marginTop: "3%" }}>
+          {!favouriteCardOpen && <h4>Your Favorite Recipes:</h4>}
+          {!favouriteCardOpen && (
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              {recipeFavourites.map((result, index) => (
+                <div key={result.id} className="col">
+                  <div className="card">
+                    {result.image && (
+                      <img
+                        className="card-img-top"
+                        src={result.image}
+                        alt={`Image of ${result.name}`}
+                        style={{
+                          height: "100px",
+                          objectFit: "cover",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleFavouriteClick(index)}
+                      />
+                    )}
+                    <div className="card-body">
+                      <h5 className="card-title">{result.name}</h5>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-        {favouriteCardOpen && (
-          <RecipeCard
-            recipe={favClicked}
-            setFavouriteCard={setFavouriteCardOpen}
-          />
-        )}
+              ))}
+            </div>
+          )}
+          {favouriteCardOpen && (
+            <RecipeCard
+              recipe={favClicked}
+              setFavouriteCard={setFavouriteCardOpen}
+            />
+          )}
+        </div>
       </div>
       <br />
-      <GPTBot />
+      {!favouriteCardOpen && <GPTBot />}
     </div>
   );
 }
