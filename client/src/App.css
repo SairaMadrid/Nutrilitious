@@ -98,8 +98,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 3% auto;
+  height: 80vh;
+  margin: 2% auto;
 }
 
 /* for search results */
