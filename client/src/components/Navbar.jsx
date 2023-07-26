@@ -42,7 +42,7 @@ export default function Navbar() {
               <Link className="nav-item nav-link" to="/profile">
                 <i className="fas fa-user"></i> Profile
               </Link>
-              <Link className="nav-item nav-link" to="/">
+              <Link className="nav-item nav-link" to="/homepage">
                 <i className="fas fa-home"></i> Homepage
               </Link>
               <button className="btn btn-outline-danger" onClick={logout}>
