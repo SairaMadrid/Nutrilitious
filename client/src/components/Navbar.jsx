@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import nutri from "../assets/nutri.jpg";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const auth = useAuth();
@@ -16,7 +16,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link className="navbar-brand" to="/">
           {" "}
-          <img className="logo" src={nutri} alt="nutri" />
+          <img className="logo" src={logo} alt="logo" />
         </Link>
         <div className="navbar-nav ml-auto">
           {" "}

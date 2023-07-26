@@ -96,7 +96,21 @@ router.get("/", userShouldBeLoggedIn, async (req, res, next) => {
   }
 });
 
-/*
-// create new components called favourites? Or is there profile component?
-*/
+// GET favoutites by ID:
+
+router.get(
+  "/:id",
+  /* userShouldBeLoggedIn, */ async (req, res, next) => {
+    console.log(req.params.id);
+    try {
+      const result = await db(
+        `SELECT * FROM favourites WHERE api_id  = ${req.params.id};`
+      );
+      res.send(result.data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+);
+
 module.exports = router;

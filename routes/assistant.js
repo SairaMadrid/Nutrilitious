@@ -32,17 +32,19 @@ const openai = new OpenAIApi(configuration);
     });
   }); */
 
-  //Get an AI response based on the user preference:
-  router.post('/', userShouldBeLoggedIn, async (req, res, next) => {
-    try {
-        const query = await db(`SELECT preferences FROM profiles WHERE id = ${req.id};`);
-        console.log(query);
-        const preferences = query.data[0].preferences;
+//Get an AI response based on the user preference:
+router.post("/", userShouldBeLoggedIn, async (req, res, next) => {
+  try {
+    const query = await db(
+      `SELECT preferences FROM profiles WHERE id = ${req.id};`
+    );
+    console.log(query);
+    const preferences = query.data[0].preferences;
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-0613",
-      //prompt: preferences, 
-      max_tokens: 400, 
+      //prompt: preferences,
+      max_tokens: 400,
       temperature: 0.6,
       messages: [
         {
@@ -60,6 +62,7 @@ const openai = new OpenAIApi(configuration);
       output: completion.data.choices[0].message.content,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).send(error.message);
   }
 });
