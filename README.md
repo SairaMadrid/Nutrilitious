@@ -1,6 +1,6 @@
 # MVP: Nutrilitious App
 
-![Image of the Nutrilitious logo](./client/src/assets/nutri.jpg)
+![Image of the Nutrilitious logo](./client/src/assets/logo.png)
 
 Nutrilitous is a web app where users can find delicious recipes based on the ingredients in their fridge. They can create a profile to benefit from additional features, such as saving favourite recipes and querying an OpenAI assistant for inspirational recipes that are based on their own preferences.
 
