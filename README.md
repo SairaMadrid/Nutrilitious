@@ -1,5 +1,7 @@
 # MVP: Nutrilitious App
 
+<img src="./client/src/assets/logo.png" alt="Image of the Nutrilitious logo" width="200"/>
+
 Nutrilitous is a web app where users can find delicious recipes based on the ingredients in their fridge. They can create a profile to benefit from additional features, such as saving favourite recipes and querying an OpenAI assistant for inspirational recipes that are based on their own preferences.
 
 ## Description
@@ -8,7 +10,7 @@ This README file provides an overview of the project, its features, installation
 
 For this project, 4 CodeOP students (Carli, Irene, Saira, and Steph) worked together in the course of about 2 1/5 weeks to create the Nutrilitious MVP.
 
-(`The intention behind this idea was to create a web app that..... because....`)
+(`The intention behind this idea was to create a web app that..... because....`) (Carli)
 
 These are the pages: the splash page, `Home`, `About`, `Register`, `Login`, and `Profile`.
 
@@ -22,27 +24,33 @@ The necessary database for this website consists of two tables (`profiles` & `fa
 
 ### Navbar:
 
-`add details here`
+`add details here` (Saira)
 
-### Register & Login:
+### Register
 
-`add details here`
+`add details here` (Saira)
+
+### Login:
+
+`add details here` (Irene)
 
 ### Search bar:
 
-`add details here also incl. Spoonacular and recipe card info incl. favouriites feature`
+`add details here also incl. Spoonacular and recipe card info incl. favourites feature` (Steph)
 
 ### Profile:
 
-`add details here regarding uploading photo, editing profile details, and below the subheadline ChatGPT....`
+`add details here regarding uploading photo, editing profile details, and below the subheadline ChatGPT....` (Irene)
 
 #### Suggestions by OpenAI assistant:
 
-`add details here regarding ChatGPT`
+`add details here regarding ChatGPT` (Irene)
 
 ## Future Features
 
-`add details here`
+- a filter function: by diet, cuisine, intolerances, ...
+- a chatbox connected to ChatGPT that the user can ask nutrition-based questions
+- a forgotten password feature (to reset the password)
 
 ## Installation
 
@@ -60,8 +68,8 @@ To install and run this MVP locally, follow these steps:
    - Replace the values with your specific configuration (especially your PW for mySQL). You will need api keys from both Spoonacular as well as the OpenAI api (ChatGPT).
    - Please add to `.env` file: SUPER_SECRET=shhh
    - Before the next steps, you should create a mySQL database named `nutri_profiles`
-   - Then you can cd back to my-first-mvp and run the following request in the terminal: `npm run migrate`. This will trigger the database.js to fill the `nutri_profiles` database with all the necessary preset data for the website.
-5. Start the application:
+   - Then you can cd back to my-first-mvp and run the following request in the terminal: `npm run migrate`. This will trigger the database.js to fill the `nutri_profiles` database with all the necessary preset data for the website. Keep in mind to run npm migrate again whenever you want to reset the database or whenever you update/change the init_db.sql file.
+5. Everytime you want to start the application:
    npm start
 6. run the development server:
    - cd client
