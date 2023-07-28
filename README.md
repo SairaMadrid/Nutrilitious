@@ -16,28 +16,6 @@ These are the pages: the splash page, `Home`, `About`, `Register`, `Login`, and 
 
 The necessary database for this website consists of two tables (`profiles` & `favourites`) with the following strcuture/columns:
 
-`profiles`:
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`first_name` VARCHAR(255) NOT NULL,
-`last_name` VARCHAR(255) NOT NULL,
-`email` VARCHAR(255) NOT NULL,
-`password` VARCHAR(255) NOT NULL,
-`preferences` TEXT NOT NULL,
-`cooking_skills` TEXT NOT NULL,
-`description` TEXT NOT NULL,
-`image` TEXT NOT NULL,
-UNIQUE KEY `profiles_email_unique`(`email`),
-PRIMARY KEY(`id`)
-
-`favourites`:
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-`name` VARCHAR(255) NOT NULL,
-`image` VARCHAR(255) NOT NULL,
-`profiles_id` INT UNSIGNED NOT NULL ,
-`api_id` INT NOT NULL,
-PRIMARY KEY(`id`),
-CONSTRAINT `favourites_profiles_id_foreign` FOREIGN KEY (`profiles_id`) REFERENCES `profiles`(`id`)
-
 ![Image of the Nutrilitious database setup](./client/src/assets/DB_table_setup.png)
 
 ## Features, Pages, and Usage
@@ -71,30 +49,27 @@ CONSTRAINT `favourites_profiles_id_foreign` FOREIGN KEY (`profiles_id`) REFERENC
 To install and run this MVP locally, follow these steps:
 
 1. Clone the repository:
-   git clone https://github.com/Steph-Aniee/my-first-mvp.git
-2. Navigate to the project directory:
-   cd my-first-mvp
-3. Install the dependencies:
+   git clone https://github.com/CodeOp-tech/FSPT16-group-2.git
+2. Install the dependencies:
    npm install
-4. Navigate to the client and repeat:
+3. Navigate to the client and repeat:
    - cd client
    - npm install
-5. Configure the environment variables:
+4. Configure the environment variables:
    - Open the `.env` file.
    - Replace the values with your specific configuration (especially your PW for mySQL). You will need api keys from both Spoonacular as well as the OpenAI api (ChatGPT).
    - Please add to `.env` file: SUPER_SECRET=shhh
    - Before the next steps, you should create a mySQL database named `nutri_profiles`
    - Then you can cd back to my-first-mvp and run the following request in the terminal: `npm run migrate`. This will trigger the database.js to fill the `nutri_profiles` database with all the necessary preset data for the website.
-6. Start the application:
+5. Start the application:
    npm start
-7. run the development server:
+6. run the development server:
    - cd client
    - npm run dev
-8. Access the application in your browser at `http://localhost:5173`.
+7. Access the application in your browser at `http://localhost:5173`.
 
-### Further instructions on how to test some of the data on Postman:
+### Further instructions on how to test some of the endpoints on Postman:
 
-- How to test the Spoonacular recipe endpoints on Postman:
 - GET recipe titles by ingredients:
 - Open a new tab on Postman, paste the address: http://localhost:4000/api/recipe/findByIngredients; in the Query Params tab insert 'ingredients' under the 'Key' column and the ingredients you want to search under the 'Value' column. With this endpoint you can get a recipe id to fetch cooking instructions later;
 
@@ -114,7 +89,7 @@ To install and run this MVP locally, follow these steps:
 
 ## Contributing
 
-Contributions are welcome! To contribute to my MVP, follow these steps:
+Contributions are welcome! To contribute to our MVP, follow these steps:
 
 1. Fork the repository.
 2. Create a new branch:
