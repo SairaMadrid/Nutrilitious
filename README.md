@@ -8,7 +8,7 @@ Nutrilitous is a web app where users can find delicious recipes based on the ing
 
 This README file provides an overview of the project, its features, installation instructions, and usage guidelines.
 
-For this project, 4 CodeOP students (Carli, Irene, Saira, and Steph) worked together in the course of about 2 1/5 weeks to create the Nutrilitious MVP.
+For this project, 4 CodeOP students (Carli, Irene, Saira, and Steph) worked together in the course of about 2 1/2 weeks to create the Nutrilitious MVP.
 
 (`The intention behind this idea was to create a web app that..... because....`) (Carli)
 
@@ -52,10 +52,9 @@ Button: "Logout" triggers the logout function.
 Functions:
 
 -handleSkillsChange: Updates the user's cooking skills based on checkbox selection.
-handleChange: Handles changes in form inputs and updates the user state accordingly.
-
+-handleChange: Handles changes in form inputs and updates the user state accordingly.
 -handleRegister: Validates form fields and completes the registration process.
-handleTogglePassword: Toggles the visibility of the password input.
+-handleTogglePassword: Toggles the visibility of the password input.
 
 2. The form provides user-friendly labels and placeholders for inputs. The "Sign up" button submits the form, and any errors are displayed below it. A link to the login page is also provided.
 
