@@ -10,7 +10,11 @@ This README file provides an overview of the project, its features, installation
 
 For this project, 4 CodeOP students (Carli, Irene, Saira, and Steph) worked together in the course of about 2 1/2 weeks to create the Nutrilitious MVP.
 
-(`The intention behind this idea was to create a web app that..... because....`) (Carli)
+The intention behind this idea was to create a web app that:
+
+- supports a busy lifestyle
+- promotes sustainability and encourage use of the ingredients users have in their fridge
+- provide delicious recipes and inspire people to get cooking
 
 These are the pages: the splash page, `Home`, `About`, `Register`, `Login`, and `Profile`.
 
@@ -78,7 +82,7 @@ Functions:
 - the Results component that displays max. 9 search results in bootstrap cards with recipe titles and images;
 - the Recipe Card that's displayed when the user clicks on one of the results - it contains the full recipe incl. all ingredients, cooking time, and servings, as well as a heart button to add the current recipe to the user's profile as a favourite recipe;
 - All recipe results and recipe cards are fed by results from calls to the Spoonacular API. We created our own endpoints to best access the data we need from Spoonacular.
-- Through conditionally rendering these three components, we tried not to waste too many of our calls through our trial API keys. This means that when you search and the results are displayed, that is just one call, even if you open up the recipe card, the search results are still there. However, a new call has to be made to get the recipe details for the card you clicked on. If you go back to the search results hwoever, they will be displayed without having to make a another call for the same old input.
+- Through conditionally rendering these three components, we tried not to waste too many of our calls through our trial API keys. This means that when you search and the results are displayed, that is just one call, even if you open up the recipe card, the search results are still there. However, a new call has to be made to get the recipe details for the card you clicked on. If you go back to the search results however, they will be displayed without having to make a another call for the same old input.
 
 2. The endpoint to access the results from the search bar is `GET /api/recipe/findByIngredients`.
 3. The endpoint to add, delete, and get favourite recipes is `/api/favourites`.
